@@ -1,0 +1,47 @@
+{
+  "dependencies": {
+    "axios": "^0.21.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.1.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "helmet": "^4.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.1",
+    "mongoose": "^5.13.7",
+    "morgan": "^1.10.0",
+    "passport": "^0.4.1",
+    "passport-google-oauth": "^2.0.0",
+    "passport-google-oauth2": "^0.2.0",
+    "puppeteer": "^10.2.0",
+    "web3": "^1.5.2"
+  },
+  "name": "cryptoapp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  },
+  "scripts": {
+    "start": "nodemon -L",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joedurand-hub/CryptoApp.git"
+  },
+  "author": "Joel Durand",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joedurand-hub/CryptoApp/issues"
+  },
+  "homepage": "https://github.com/joedurand-hub/CryptoApp#readme",
+  "description": "asdasdasd"
+}
