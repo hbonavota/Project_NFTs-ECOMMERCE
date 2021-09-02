@@ -21,7 +21,7 @@ function ElevationScroll(props) {
     });
   
     return React.cloneElement(children, {
-      elevation: trigger ? 4 : 0,
+      elevation: trigger ? 6 : 0,
     });
   }
 
@@ -83,15 +83,5 @@ export default function NavBar(props) {
         <div className={classes.toolbarMargin} />
         </React.Fragment>
 
-        // <header className={style.navBar}>
-        //     <nav>
-        //         <ul className={style.list}>
-        //             <li className={style.list_item}>
-        //                 <NavLink exact to="/" >HOME</NavLink>
-        //                 <NavLink exact to="/Login" >Login</NavLink>
-        //             </li>
-        //         </ul>
-        //     </nav>
-        // </header>
     )
 }
