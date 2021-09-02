@@ -4,10 +4,10 @@ import { GET_NTFs } from './constants'
 export const getNFTs= () =>{
     return async function(dispatch){
         try {
-            let json = await axios.get('http://localhost:3001/getNfts');
+            let response = await axios.get('http://localhost:8001/nft');
             return dispatch({
                 type: GET_NTFs,
-                payload: json.data
+                payload: response.data
             })
         } catch (error) {
             console.log(error)
