@@ -7,7 +7,7 @@ function isLoggedIn(req,res,next){
 }
 // Imports
 // const { signUp } = require('../controllers/signUp')
-const { connectWallet } = require('../controllers/crypto/connectWallet.routes') 
+const { connectWallet } = require('../controllers/payments/crypto/connectWallet.routes') 
 
 
 
