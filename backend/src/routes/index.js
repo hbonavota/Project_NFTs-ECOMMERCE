@@ -1,18 +1,16 @@
-const { Router } = require('express');
-const router = require('express').Router();
-const auth = require('../controllers/user/auth.js');
+const { Router } = require("express");
+const router = require("express").Router();
+const auth = require("../controllers/user/auth.js");
 
-function isLoggedIn(req,res,next){
-    req.user? next() : res.sendStatus(401)
+function isLoggedIn(req, res, next) {
+  req.user ? next() : res.sendStatus(401);
 }
 // Imports
 // const { signUp } = require('../controllers/signUp')
-const { connectWallet } = require('../controllers/crypto/connectWallet.routes') 
+const { connectWallet } = require("../controllers/crypto/connectWallet.routes");
 
-
-
-// Routes      
-router.get('/connect', connectWallet)
+// Routes
+router.get("/connect", connectWallet);
 
 /* router.get('/auth/google',
 passport.authenticate('google'), {scope:['email','profile']} ) 
@@ -34,7 +32,6 @@ router.get('/protected', isLoggedIn,(req,res)=>{
 
 
 
-*/     
+*/
 
-
-module.exports = router ;
+module.exports = router;
