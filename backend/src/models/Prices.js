@@ -1,6 +1,5 @@
+const { Schema, model } = require("mongoose");
 
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
 const PriceSchema = new Schema({
 	currency: String,
@@ -8,4 +7,4 @@ const PriceSchema = new Schema({
 	date: String,
 });
 
-module.exports = mongoose.model('prices', PriceSchema);
+module.exports = model('prices', PriceSchema);

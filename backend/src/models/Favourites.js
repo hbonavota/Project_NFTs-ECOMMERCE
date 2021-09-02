@@ -1,6 +1,4 @@
-
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const { Schema, model } = require("mongoose");
 
 const FavouritesSchema = new Schema({
 	user: {
@@ -18,4 +16,4 @@ const FavouritesSchema = new Schema({
 	],
 });
 
-module.exports = mongoose.model('favourites', FavouritesSchema);
+module.exports = model('favourites', FavouritesSchema);

@@ -1,15 +1,9 @@
-
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-
-const findOrCreate = require('mongoose-findorcreate');
+const { Schema, model } = require("mongoose");
 
 const CurrencySchema = new Schema({
-	quotes: {''},
+	quotes: {'': ""},
 	dateVig: Number,
 	dateCd: Number,
 });
 
-CurrencySchema.plugin(findOrCreate);
-
-module.exports = mongoose.model('currencies', CurrencySchema);
+module.exports = model('currencies', CurrencySchema);

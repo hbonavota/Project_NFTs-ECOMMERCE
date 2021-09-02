@@ -1,7 +1,4 @@
-
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-var findOrCreate = require('mongoose-findorcreate');
+const { Schema, model } = require("mongoose");
 
 const BrandsSchema = new Schema({
 	name: {
@@ -20,6 +17,5 @@ const BrandsSchema = new Schema({
 		addressPrivateKey: String
 	}
 });
-BrandsSchema.plugin(findOrCreate);
 
-module.exports = mongoose.model('artistNFTs', BrandsSchema);
+module.exports = model('artistNFTs', BrandsSchema);

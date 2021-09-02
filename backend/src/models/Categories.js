@@ -1,7 +1,5 @@
+const { Schema, model } = require("mongoose");
 
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const findOrCreate = require('mongoose-findorcreate');
 
 const CategoriesSchema = new Schema({
 	name: {
@@ -16,6 +14,5 @@ const CategoriesSchema = new Schema({
 	],
 	specs: [],
 });
-CategoriesSchema.plugin(findOrCreate);
 
-module.exports = mongoose.model('categories', CategoriesSchema);
+module.exports = model('categories', CategoriesSchema);

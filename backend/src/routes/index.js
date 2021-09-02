@@ -8,12 +8,18 @@ function isLoggedIn(req,res,next){
 // Imports
 // const { signUp } = require('../controllers/signUp')
 const { connectWallet } = require('../controllers/payments/crypto/connectWallet.routes') 
-
-
+const { pinDirectoryToIPFS } = require('../controllers/products/CDI-IPFS')
+const { createProduct, 
+        getProducts, 
+        getProductById, 
+        updateProductById, 
+        deleteProductById 
+        } = require('../controllers/products/products.routes') 
 
 // Routes      
 router.get('/connect', connectWallet)
-
+router.post('/product', createProduct)
+router.post('/cid', pinDirectoryToIPFS)
 /* router.get('/auth/google',
 passport.authenticate('google'), {scope:['email','profile']} ) 
 

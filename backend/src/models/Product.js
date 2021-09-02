@@ -1,7 +1,5 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const { Schema, model } = require("mongoose");
 
-const findOrCreate = require('mongoose-findorcreate');
 
 const ProductsSchema = new Schema({
 	name: {
@@ -10,30 +8,29 @@ const ProductsSchema = new Schema({
 	},
 	description: String,
 	price: {currency: String, value: Number},
-	image: [],
+	image: String,
 	tokenId: String,
-	categories: [
-		{
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'categories',
-		},
-	],
-	artist: [
-		{
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'artistNFTs',
-		},
-	],
+	// categories: [
+	// 	{
+	// 		type: mongoose.Schema.Types.ObjectId,
+	// 		ref: 'categories',
+	// 	},
+	// ],
+	// artist: [
+	// 	{
+	// 		type: mongoose.Schema.Types.ObjectId,
+	// 		ref: 'artistNFTs',
+	// 	},
+	// ],
 	specs: {},
 	reviews: [],
-	collection: [
-		{
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'products',
-		},
-	],
+	// collection: [
+	// 	{
+	// 		type: mongoose.Schema.Types.ObjectId,
+	// 		ref: 'products',
+	// 	},
+	// ],
 });
 
-ProductsSchema.plugin(findOrCreate);
 
-module.exports = mongoose.model('products', ProductsSchema);
+module.exports = model('products', ProductsSchema);

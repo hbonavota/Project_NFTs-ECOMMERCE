@@ -1,8 +1,8 @@
-const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
+require('dotenv').config();
 
 const mongoose = require("mongoose");
 
-mongoose.connect(`mongodb://${DB_HOST}/${DB_NAME}`, {
+mongoose.connect(`mongodb://localhost/henry`, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
 })

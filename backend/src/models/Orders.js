@@ -1,7 +1,4 @@
-
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const findOrCreate = require('mongoose-findorcreate');
+const { Schema, model } = require("mongoose");
 
 const OrdersSchema = new Schema({
 	users: {
@@ -43,6 +40,4 @@ const OrdersSchema = new Schema({
 	transactionDetail: {},
 });
 
-OrdersSchema.plugin(findOrCreate);
-
-module.exports = mongoose.model('orders', OrdersSchema);
+module.exports = model('orders', OrdersSchema);
