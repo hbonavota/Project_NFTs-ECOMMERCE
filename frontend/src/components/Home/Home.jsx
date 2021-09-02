@@ -23,7 +23,6 @@ export default function Home() {
 
     return (
         <div>
-            <NavBar />
             <div className= /* {stateLoading ? style.back2 : style.back1} */{style.back1}>
                 <div className={style.container}>
                     <h1> Welcome to NFTs-ECOMMERCE</h1>
