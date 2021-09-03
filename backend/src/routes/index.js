@@ -6,12 +6,14 @@ const passport = require('passport');
 const {isLoggedIn} = require('../controllers/user/isLoggedIn')
 const {protected} = require('../controllers/apiGoogle/protected')
 
+
 const { connectWallet } = require('../controllers/crypto/connectWallet.routes') 
 const isAuthenticated = require('./isAuthenticated.js')
 const googleCallback = require('./googleCallback');
 const authFailure = require('./authFailure');
 const { pinDirectoryToIPFS } = require('../controllers/products/CDI-IPFS') 
 const { createProduct, getProducts, getProductById, updateProductById, deleteProductById } = require('../controllers/products/products')
+
 // Routes      
 //router.get('/connect', connectWallet)
 router.get('/connect', connectWallet)
