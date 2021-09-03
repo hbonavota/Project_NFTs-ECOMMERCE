@@ -1,5 +1,5 @@
 
-import { GET_NTFs, SET_LOADING } from "../actions/constants";
+import { GET_NTFs, SET_LOADING, IS_AUTORIZATED } from "../actions/constants";
 
 const initialState = {
   allNFTs: [], // state of all NFTS from API openSea
