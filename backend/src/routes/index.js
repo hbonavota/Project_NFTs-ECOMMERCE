@@ -7,7 +7,7 @@ const {isLoggedIn} = require('../controllers/user/isLoggedIn')
 const {protected} = require('../controllers/apiGoogle/protected')
 
 
-const { connectWallet } = require('../controllers/crypto/connectWallet.routes') 
+const { connectWallet } = require('../controllers/payments/crypto/connectWallet.routes') 
 const isAuthenticated = require('./isAuthenticated.js')
 const googleCallback = require('./googleCallback');
 const authFailure = require('./authFailure');
