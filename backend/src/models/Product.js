@@ -5,11 +5,24 @@ const Schema = mongoose.Schema;
 
 const ProductsSchema = new Schema({
 
-	name: { type: String, require: true, index:true, unique:false, sparse:true},
-	description: String,
-	price: {currency: String, value: Number},
-	image: [],
+	name: { 
+		type: String, 
+		require: true, 
+		index:true, 
+		sparse:true
+	},
+	id: String,
+	price: {
+		type: Number,
+		currency: String, 
+		required: true
+	},
+	image: String,
 	tokenId: String,
+	address: String,
+	reviews: String,
+	createdInDB: Boolean,
+	description: String
 	// categories: [
 	// 	{
 	// 		type: mongoose.Schema.Types.ObjectId,
@@ -22,8 +35,6 @@ const ProductsSchema = new Schema({
 	// 		ref: 'artistNFTs',
 	// 	},
 	// ],
-	address: String,
-	reviews: String,
 	// collection: [
 	// 	{
 	// 		type: mongoose.Schema.Types.ObjectId,
