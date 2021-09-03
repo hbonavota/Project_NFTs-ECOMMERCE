@@ -22,7 +22,12 @@ const ProductsSchema = new Schema({
 	address: String,
 	reviews: String,
 	createdInDB: Boolean,
-	description: String
+	description: String,
+	artist: {
+		name: String,
+		address: String
+	},
+	
 	// categories: [
 	// 	{
 	// 		type: mongoose.Schema.Types.ObjectId,
