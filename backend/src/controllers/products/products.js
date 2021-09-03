@@ -7,12 +7,10 @@ const { API_KEY_OPENSEA } = process.env;
 async function createProduct (req, res)  {
     try {
         const { name, description, price, image, categories, artist, address, reviews, collection } = req.body
-
         const randomString = web3.utils.sha3(Math.random(0, 1000000).toString(16) + web3.utils.randomHex(32))
         const sevenHundred = web3.eth.accounts.wallet.create(1, randomString)
 
-        console.log(sevenHundred.Wallet)
-
+        let tokenId = sevenHundred[0].address;
         const newProduct  = new Product (
             {
             name, 
@@ -38,7 +36,7 @@ async function createProduct (req, res)  {
 }
 
 let offset = 0
-async function getProducts (req, res)  {
+async function getProductsApi (req, res)  {
     try {
         
         const nfts = await axios.get(`https://api.opensea.io/api/v1/assets?order_direction=desc&offset=${offset * 50}&limit=50`)
@@ -52,9 +50,9 @@ async function getProducts (req, res)  {
                     id: data.id,
                     // short_description:data.collection,
                     sales: data.num_sales,
-                    token_id: data.token_id,
+                    tokenId: data.token_id,
                     description: data.collection.description,
-                    address: data.address,
+                    address: data.asset_contract.address,
                     // featured: data.featured,
                     // featured_image_url: data.featured_image_url,
                     // twitter_username: data.twitter_username,
@@ -63,11 +61,8 @@ async function getProducts (req, res)  {
                     addressOwner: data.owner.address,
                 }
             )
-            console.log(newProduct)
-           const productSaved = await newProduct.save()
+            return await newProduct.save()
         }
-   //Traigo desde la DB y lo mando al front     res.json(productSaved)
-           
 
      }
      catch(err){
@@ -75,8 +70,55 @@ async function getProducts (req, res)  {
      }
 }
 
+async function getProductsDb (req, res)  {
+    try {
+           const products = await Product.find()
+           return res.json(products)
+     }
+     catch(err){
+         console.log(err)
+     }
+}
+
 async function getProductById (req, res)  {
+try {
+    const { id } = req.params;
+
+    const product = await Product.findById(id)
+
+    const nfts = await axios.get(`https://api.opensea.io/api/v1/asset/${product.address}/${product.tokenId}/`)
+    const nft = nfts.data;
+
+    console.log(nft)
     
+
+
+    
+
+
+    // for (let data of nft) { 
+    //     const productId = {
+    //             name: data.name,
+    //             image: data.image_url,
+    //             id: data.id,
+    //             address: data.asset_contract.address,
+    //             token_id: data.token_id,
+    //             description: data.collection.description,
+    //             featured: data.featured,
+    //             featured_image_url: data.featured_image_url,
+    //             twitter_username: data.twitter_username,
+    //             instagram_username: data.instagram_username,
+    //             addressOwner: data.owner.address,
+    //         }
+    //         return res.json(productId)
+    // }
+
+
+} catch(error) {
+    console.log(error)
+    return res.json(error)
+}
+
 }
 
 async function updateProductById (req, res)  {
@@ -91,7 +133,8 @@ async function deleteProductById (req, res)  {
 
 module.exports = {
     createProduct,
-    getProducts,
+    getProductsApi,
+    getProductsDb,
     getProductById,
     updateProductById,
     deleteProductById,

@@ -9,15 +9,14 @@ function isLoggedIn(req,res,next){
 // Imports
 // const { signUp } = require('../controllers/signUp')
 const { connectWallet } = require('../controllers/payments/crypto/connectWallet.routes') 
-const { pinDirectoryToIPFS } = require('../controllers/products/CDI-IPFS') 
-const { createProduct, getProducts, getProductById, updateProductById, deleteProductById } = require('../controllers/products/products')
+const { createProduct, getProductsApi, getProductsDb, getProductById, updateProductById, deleteProductById } = require('../controllers/products/products')
 
 // Routes      
 router.get('/connect', connectWallet)
-router.post('/cdi', pinDirectoryToIPFS)
+router.get('/nfts', getProductsApi)
+router.get('/nft', getProductsDb)
+router.get('/nft/:id', getProductById)
 router.post('/nft', createProduct)
-router.get('/nft', getProducts)
-// router.get('/nft', getProductById)
 // router.put('/nft', updateProductById)
 // router.delete('/nft', deleteProductById)
 
