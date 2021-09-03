@@ -1,9 +1,10 @@
-import { GET_NTFs,  SET_LOADING } from '../actions/constants'
+import { GET_NTFs,  SET_LOADING, IS_AUTORIZATED } from '../actions/constants'
 
 const initialState = {
     allNFTs: [], // state of all NFTS from API openSea
     filtered: [], // contains array for make the filters
-    loading: true //  boolean for show a image when is loading. Set first : true
+    loading: true, //  boolean for show a image when is loading. Set first : true
+    userIsAuthenticated:[]
 };
 
 function rootReducer(state = initialState, action) {
@@ -19,6 +20,11 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 loading: action.payload
+            };
+        case IS_AUTORIZATED :
+            return {
+                ...state,
+                userIsAuthenticated: action.payload
             };
         default:
             return state;
