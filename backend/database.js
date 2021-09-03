@@ -18,3 +18,5 @@ db.once('open', _=> {
 db.on('error', err => {
         console.log(err);
 })
+
+//probando el merge por consola
