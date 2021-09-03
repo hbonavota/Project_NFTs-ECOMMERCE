@@ -1,8 +1,22 @@
-/* const mongoose = require("mongoose");
+require('dotenv').config();
+const { DB_NAME, DB_USER, DB_PASSWORD } = process.env;
+const mongoose = require("mongoose");
 
-mongoose.connect("mongodb://localhost/", {
+
+const uri = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@cluster0.s7ssg.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`;
+const db = mongoose.connection;
+
+mongoose.connect(uri, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
 })
-        .then(db => console.log('Db is connected '))
-        .catch(error => console.log(error)) */
+
+db.once('open', _=> {
+        console.log('Database is connected successfully');
+})
+
+db.on('error', err => {
+        console.log(err);
+})
+
+//probando el merge por consola
