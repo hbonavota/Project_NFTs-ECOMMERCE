@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 // const findOrCreate = require('mongoose-findorcreate');
 
 const ProductsSchema = new Schema({
+
 	name: { type: String, require: true, index:true, unique:false, sparse:true},
 	description: String,
 	price: {currency: String, value: Number},

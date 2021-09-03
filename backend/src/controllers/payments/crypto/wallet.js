@@ -12,6 +12,7 @@ const randomString = web3.utils.sha3(Math.random(0, 1000000).toString(16) + web3
 const sevenHundred = web3.eth.accounts.wallet.create(7, randomString)
 
 
+
 // Encripto la clave privada
 // const privateKeyEncrypted = web3.eth.accounts.encrypt(sevenHundred.privateKey, 'password');
 // console.log(privateKeyEncrypted)

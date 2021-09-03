@@ -1,23 +1,17 @@
 import NavBar from '../NavBar/NavBar';
-import { GoogleLogin } from 'react-google-login';
 import './Login.module.css';
+import { useDispatch } from 'react-redux';
+import IsAutorize from '../../actions/IsAutorize'
 const Web3 = require('web3');
 
 
-function Login() {
+export default function Login() {
 
-  const responseGoogle = (resp) => {
-    console.log(resp)
-    if (resp.ya) {
-      alert(`Bienvenido ${resp.Ws.Qe}`)
-    }
 
-    if (resp.details === "Cookies are not enabled in current environment.") {
-      alert("Por favor, necesitamos que ingreses a configuración de tu Browser y actives las cookies de terceros")
-    }
-    /*     if(){
-    
-        } */
+  const dispatch = useDispatch();
+
+  const handleClick = () => {
+    dispatch(IsAutorize())
   }
 
   const connect = async function () {
@@ -55,19 +49,15 @@ function Login() {
         <h1>
           LOGIN
         </h1>
-      <div className="LoginDiv">
-        <h3>Login with google or MetaMask acount</h3>
-        <button id="connect" onClick={connect}>
-          MetaMask
-        </button>
-        <GoogleLogin
-          clientId="358006183934-fiu6bc9vqf0rcpgoksmd8mqfo9m8h9u8.apps.googleusercontent.com"
-          buttonText="Login"
-          onSuccess={responseGoogle}
-          onFailure={responseGoogle}
-          cookiePolicy={'single_host_origin'}
-        />
-      </div>
+        <div className="LoginDiv">
+          <h3>Login with google or MetaMask acount</h3>
+          <button id="connect" onClick={connect}>
+            MetaMask
+          </button>
+          <button onClick={handleClick}>
+            Ingresar con Google
+          </button>
+        </div>
 
 
         <div id="content">
@@ -90,4 +80,3 @@ function Login() {
   );
 }
 
-export default Login;
