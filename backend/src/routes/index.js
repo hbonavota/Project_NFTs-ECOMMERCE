@@ -19,9 +19,9 @@ router.get('/nft/:id', getProductById)
 router.post('/nft', createProduct)
 // router.put('/nft', updateProductById)
 // router.delete('/nft', deleteProductById)
-router.use('/auth/google',isAuthenticated)
-router.use('/google/callback',googleCallback)
-router.use('/auth/failure', authFailure)
+// router.use('/auth/google',isAuthenticated)
+// router.use('/google/callback',googleCallback)
+// router.use('/auth/failure', authFailure)
 router.use('/protected', isLoggedIn, protected)
 
 module.exports = router 
