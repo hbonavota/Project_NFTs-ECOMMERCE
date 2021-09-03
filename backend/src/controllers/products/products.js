@@ -56,7 +56,7 @@ async function getProductsApi (req, res,next)  {
             }
            //VER COMO TRAER LOS PRODUCTOS CREADOS DE LA BASE DE DATOS !!!!!
            //     var dbNFTs=db.henry.findAll({
-               console.log(dataAssets,"esto es assets")
+              
             res.json(dataAssets);
       
     }
@@ -101,13 +101,18 @@ async function searchProduct(req, res,next) {
     var name= req.query.query  
     try{
         const nfts = await axios.get('https://api.coinranking.com/v2/search-suggestions?query='+name)
-        return res.json(nfts.data)
+        console.log(nfts)
+        
+        return res.send(nfts.data.data.coins)
+       
     }
+    
     catch(error){
         next("error")
     }
      
 }
+
 async function updateProductById (req, res)  {
    
     
