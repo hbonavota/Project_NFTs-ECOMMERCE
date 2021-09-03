@@ -36,34 +36,29 @@ async function createProduct (req, res)  {
 }
 
 async function getProductsApi (req, res,next)  {
-    var name= req.query.name   
-    try {
-        const nfts = await axios.get('https://api.coinranking.com/v2/nfts')
-        const nft = nfts.data.data.nfts;
-        let dataAssets = [];    
-        for (let n of nft) {
-        const assets = {
-            name: n.name,
-            image: n.image,
-            id: n.id,
-            price:n.price,
-            price_dolar:n.priceInDollar,     
-            tokenId:n.tokenId
-           
-          };
-          dataAssets.push(assets);
-        }
-        console.log(dataAssets,"esto es assets")
     
-        res.json(dataAssets);
-    //   }else{
-    //         const result=nft.filter(n=>{
-    //             if(n.name && n.name.toLowerCase().includes(name.toLocaleLowerCase())){
-    //                 return n 
-    //             }
-    //         })
-    //     return res.status(200).send(result)        
-    //     }    
+   
+    try{
+
+            const nfts = await axios.get('https://api.coinranking.com/v2/nfts?&limit=100')
+            const nft = nfts.data.data.nfts;
+            let dataAssets = [];    
+            for (let n of nft) {
+                    const assets = { 
+                        name: n.name,
+                        image: n.image,
+                        id: n.id,
+                        price:n.price,
+                        price_dolar:n.priceInDollar,     
+                        tokenId:n.tokenId
+              };
+            dataAssets.push(assets);
+            }
+           //VER COMO TRAER LOS PRODUCTOS CREADOS DE LA BASE DE DATOS !!!!!
+           //     var dbNFTs=db.henry.findAll({
+               console.log(dataAssets,"esto es assets")
+            res.json(dataAssets);
+      
     }
     catch(error){
         next('Error')
@@ -83,6 +78,7 @@ async function getProductsDb (req, res)  {
 }
 
 async function getProductById (req, res)  {
+   
 try {
     const { id } = req.params;
 
@@ -90,40 +86,30 @@ try {
 
     const nfts = await axios.get(`https://api.opensea.io/api/v1/asset/${product.address}/${product.tokenId}/`)
     const nft = nfts.data;
+    
 
     console.log(nft)
-    
-
-
-    
-
-
-    // for (let data of nft) { 
-    //     const productId = {
-    //             name: data.name,
-    //             image: data.image_url,
-    //             id: data.id,
-    //             address: data.asset_contract.address,
-    //             token_id: data.token_id,
-    //             description: data.collection.description,
-    //             featured: data.featured,
-    //             featured_image_url: data.featured_image_url,
-    //             twitter_username: data.twitter_username,
-    //             instagram_username: data.instagram_username,
-    //             addressOwner: data.owner.address,
-    //         }
-    //         return res.json(productId)
-    // }
-
-
+ 
 } catch(error) {
-    console.log(error)
+    // console.log(error)
     return res.json(error)
 }
 
 }
 
+async function searchProduct(req, res,next) {
+    var name= req.query.query  
+    try{
+        const nfts = await axios.get('https://api.coinranking.com/v2/search-suggestions?query='+name)
+        return res.json(nfts.data)
+    }
+    catch(error){
+        next("error")
+    }
+     
+}
 async function updateProductById (req, res)  {
+   
     
 }
 
@@ -140,4 +126,5 @@ module.exports = {
     getProductById,
     updateProductById,
     deleteProductById,
+    searchProduct
 }
