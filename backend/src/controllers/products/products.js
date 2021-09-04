@@ -101,11 +101,9 @@ try {
     const nfts = await axios.get(`https://api.opensea.io/api/v1/asset/${product.address}/${product.tokenId}/`)
     const nft = nfts.data;
     
-
-    console.log(nft)
  
 } catch(error) {
-    // console.log(error)
+    
     return res.json(error)
 }
 
@@ -114,13 +112,15 @@ try {
 async function searchProduct(req, res,next) {
     var name= req.query.query  
     try{
-        const nfts = await axios.get('https://api.coinranking.com/v2/search-suggestions?query='+name)
-        console.log(nfts)
-        
-        return res.send(nfts.data.data.coins)
-       
-    }
-    
+        let nft = await getAll();
+        const result=nft.filter(n=>{
+            if(n.name && n.name.toLowerCase().includes(name.toLocaleLowerCase())){
+                return n 
+            }
+        })
+        console.log(result)
+        return res.status(200).send(result)        
+    }    
     catch(error){
         next("error")
     }
