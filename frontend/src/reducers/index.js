@@ -34,11 +34,6 @@ function rootReducer(state = initialState, action) {
         ...state,
         page: action.payload,
       };
-    case "GET_NFT_BY_NAME":
-      return{
-        ...state,
-        allNFTs:action.payload
-      }
     default:
       return state;
   }

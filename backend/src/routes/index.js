@@ -37,3 +37,4 @@ router.delete("/delete/:id", deleteProductById);
 router.use("/protected", isLoggedIn, protected);
 
 module.exports = router;
+

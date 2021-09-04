@@ -5,44 +5,33 @@ const Schema = mongoose.Schema;
 
 const ProductsSchema = new Schema({
 
-	name: {type: String, required: true, index: true, sparse: true},
-	id: String,
-	price: {type: Number, required: true},
-	currency: {type: String, required: true},
-	image: String,
+	name: { type: String, require: true, index:true, unique:false, sparse:true},
+	description: String,
+	price: {currency: String, value: Number},
+	image: [],
 	tokenId: String,
+	// categories: [
+	// 	{
+	// 		type: mongoose.Schema.Types.ObjectId,
+	// 		ref: 'categories',
+	// 	},
+	// ],
+	// artist: [
+	// 	{
+	// 		type: mongoose.Schema.Types.ObjectId,
+	// 		ref: 'artistNFTs',
+	// 	},
+	// ],
 	address: String,
 	reviews: String,
-	createdInDB: {
-		type: Boolean,
-		default: true
-	},
-	description: String,
-	artistName: String,
-	reviews: [],
-	
-	
-	
+	// collection: [
+	// 	{
+	// 		type: mongoose.Schema.Types.ObjectId,
+	// 		ref: 'products',
+	// 	},
+	// ],
 });
 
-// categories: [
-// 	{
-// 		type: mongoose.Schema.Types.ObjectId,
-// 		ref: 'categories',
-// 	},
-// ],
-// artist: [
-// 	{
-// 		type: mongoose.Schema.Types.ObjectId,
-// 		ref: 'artistNFTs',
-// 	},
-// ],
-// collection: [
-// 	{
-// 		type: mongoose.Schema.Types.ObjectId,
-// 		ref: 'products',
-// 	},
-// ],
 // ProductsSchema.plugin(findOrCreate);
 
 module.exports = mongoose.model('products', ProductsSchema);
