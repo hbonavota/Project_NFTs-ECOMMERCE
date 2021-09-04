@@ -6,6 +6,11 @@ import Login from './components/Login/Login.jsx'
 import Home from './components/Home/Home.jsx'
 import Error from './components/Error/Error.jsx'
 import NavBar from './components/NavBar/NavBar.js'
+import Categories from './components/categories/categories.jsx'
+import Create from './components/create/create.jsx'
+import Profile from './components/profile/profile.jsx'
+import Contact from './components/contact/contact.jsx'
+import About from './components/about/about.jsx'
 import './App.css';
 
 function App() {
@@ -14,6 +19,11 @@ function App() {
       <NavBar/>
       <Switch>
         <Route exact path='/' component={Home}></Route>
+        <Route exact path='/categories' component={Categories}></Route>
+        <Route exact path='/create' component={Create}></Route>
+        <Route exact path='/profile' component={Profile}></Route>
+        <Route exact path='/contact' component={Contact}></Route>
+        <Route exact path='/about' component={About}></Route>
         <Route exact path='/login' component={Login}></Route>
         <Route path='/*' component={Error}></Route>
       </Switch>

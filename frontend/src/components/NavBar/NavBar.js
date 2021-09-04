@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Link } from 'react-router-dom';
 import AppBar from "@material-ui/core/AppBar";
 import ToolBar from "@material-ui/core/ToolBar";
@@ -9,8 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
-import InputBase from '@material-ui/core/InputBase';
-import SearchIcon from '@material-ui/icons/Search';
+
 
 function ElevationScroll(props) {
     const { children} = props;
@@ -49,39 +48,6 @@ function ElevationScroll(props) {
           height: "35px",
           color: "white"
       },
-      search: {
-        position: 'relative',
-        borderRadius: theme.shape.borderRadius,
-        backgroundColor: "secondary",
-        marginLeft: "auto",
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-          marginLeft: theme.spacing(3),
-          width: 'auto',
-        },
-      },
-      searchIcon: {
-        padding: theme.spacing(0, 2),
-        height: '100%',
-        position: 'absolute',
-        pointerEvents: 'none',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      },
-      inputRoot: {
-        color: 'inherit',
-      },
-      inputInput: {
-        padding: theme.spacing(1, 1, 1, 0),
-        // vertical padding + font size from searchIcon
-        paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-        transition: theme.transitions.create('width'),
-        width: '100%',
-        [theme.breakpoints.up('md')]: {
-          width: '20ch',
-        },
-      },
   }))
 
   
@@ -93,36 +59,40 @@ export default function NavBar(props) {
     const handleChange = (e, value) => {
         setValue(value)
     }
+
+    useEffect(() => {
+      if(window.location.pathname === "/" && value !== 0) {
+        setValue(0);
+      } else if(window.location.pathname === "/categories" && value !== 1) {
+        setValue(1);
+      } else if(window.location.pathname === "/create" && value !== 2) {
+        setValue(2);
+      } else if(window.location.pathname === "/profile" && value !== 3) {
+        setValue(3);
+      } else if(window.location.pathname === "/contact" && value !== 4) {
+        setValue(4);
+      } else if(window.location.pathname === "/about" && value !== 5) {
+        setValue(5);
+      }
+    }, [value])
+
     return (
         <React.Fragment>
         <ElevationScroll>
         <AppBar position="fixed">
             <ToolBar >
                 <Typography variant="h5">NFT MARKET</Typography>
-                <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
                  <Tabs 
                  value={value} 
                  className={classes.tabContainer} 
                  onChange={handleChange}
                  indicatorColor="secondary">
                  <Tab className={classes.tab} component={Link} to="/" label="Home"/>
-                <Tab className={classes.tab} label="Categories"/>
-                <Tab className={classes.tab} label="Create"/>
-                <Tab className={classes.tab} label="My Profile"/>
-                <Tab className={classes.tab} label="Contact"/>
-                <Tab className={classes.tab} label="About Us"/>
+                <Tab className={classes.tab} component={Link} to="/categories" label="Categories"/>
+                <Tab className={classes.tab} component={Link} to="/create" label="Create"/>
+                <Tab className={classes.tab} component={Link} to="/profile" label="My Profile"/>
+                <Tab className={classes.tab} component={Link} to="/contact" label="Contact"/>
+                <Tab className={classes.tab} component={Link} to="/about" label="About Us"/>
              </Tabs>
              <Button component={Link} to="/login" variant="contained" color="secondary" className={classes.button}>Login</Button>
             </ToolBar>
