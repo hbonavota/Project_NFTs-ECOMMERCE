@@ -8,23 +8,23 @@ const {protected} = require('../controllers/apiGoogle/protected')
 
 
 
-const { connectWallet } = require('../controllers/payments/crypto/connectWallet.routes') 
-const { searchProduct,createProduct, getProductsApi, getProductsDb, getProductById, updateProductById, deleteProductById } = require('../controllers/products/products')
+const { connectWallet } = require('../controllers/payments/crypto/connectWallet.routes');
+const { searchProduct,createProduct, getProductsApi, getProductsDb, getProductById, updateProductById, deleteProductById, getNFTs } = require('../controllers/products/products');
 
 // Routes      
 //router.get('/connect', connectWallet)
-router.get('/search',searchProduct)
-router.get('/connect', connectWallet)
-router.get('/nfts', getProductsApi)
-router.get('/nft', getProductsDb)
-router.get('/nft/:id', getProductById)
-router.post('/nft', createProduct)
+router.get('/search',searchProduct);
+router.get('/connect', connectWallet);
+router.get('/nfts', getNFTs);
+// router.get('/nft', getProductsDb)
+router.get('/nft/:id', getProductById);
+router.post('/nft', createProduct);
 
 // router.put('/nft', updateProductById)
 // router.delete('/nft', deleteProductById)
 // router.use('/auth/google',isAuthenticated)
 // router.use('/google/callback',googleCallback)
 // router.use('/auth/failure', authFailure)
-router.use('/protected', isLoggedIn, protected)
+router.use('/protected', isLoggedIn, protected);
 
 module.exports = router 
