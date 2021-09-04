@@ -1,82 +1,106 @@
-import NavBar from '../NavBar/NavBar';
-import './Login.module.css';
-import { useDispatch } from 'react-redux';
+import NavBar from '../NavBar/NavBar'
+import './Login.module.css'
+import { useDispatch } from 'react-redux'
+import React, { useState } from 'react'
 import IsAutorize from '../../actions/IsAutorize'
-const Web3 = require('web3');
-
+import { TextField, Button } from '@material-ui/core'
+const Web3 = require('web3')
 
 export default function Login() {
+  const dispatch = useDispatch()
+  const [inputs, setInputs] = useState({ email: '', password: '' })
+  const [error, setError] = useState({ emailError: false, passError: false })
 
-
-  const dispatch = useDispatch();
-
-  const handleClick = () => {
-    dispatch(IsAutorize())
+  const validateEmail = (input) => {
+    return {
+      error: !/\S+@\S+\.\S+/.test(input),
+      message: !/\S+@\S+\.\S+/.test(input) ? 'Please enter a valid email' : '',
+    }
   }
 
+  function handleChange(e) {
+    setInputs({ ...inputs, [e.target.name]: e.target.value })
+    setError({
+      emailError: validateEmail(inputs.email).error,
+      passError: !inputs.password.length,
+    })
+  }
+  function handleSubmit(e) {
+    e.preventDefault()
+    // despachar una accion que envie el objeto inputs al back
+    setInputs({ email: '', password: '' })
+    // redirigir a donde el usuario estaba antes
+  }
+
+  //para login con google
   const connect = async function () {
     if (window.ethereum) {
       await window.ethereum.request({ method: 'eth_requestAccounts' })
-      const web3 = new Web3(window.ethereum);
-      let accounts = await web3.eth.getAccounts();
-      console.log(accounts[0])
-
+      const web3 = new Web3(window.ethereum)
     } else {
-      alert(" Please Install Metamask")
-      window.open("https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn", '_blank');
+      alert(' Please Install Metamask')
+      window.open(
+        'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn',
+        '_blank'
+      )
       /* window.location.href = "https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn"; */
     }
   }
 
-  const send = function (e) {
-    e.preventDefault();
-    console.log("Envio dinero")
-  }
-
-  // Tomar el value de ambos inputs 
-  // Validar que el valor del dinero no sea negativo
-  // isAddress para ver que sea una wallet de Ethereum
-  // sendTransaction from to value gas price
-  // from = me
-  // to = recipient 
-  // value = amount
-
   return (
-    <div className="App">
+    <div className='App'>
       <NavBar />
-      <header className="App-header">
+      <header className='App-header'>
+        <h1>LOGIN</h1>
+        <form action='' noValidate autoComplete='off' onSubmit={handleSubmit}>
+          <div>
+            <TextField
+              onChange={(e) => handleChange(e)}
+              error={error.emailError}
+              id='email'
+              name='email'
+              label='E-mail'
+              value={inputs.email}
+              variant='outlined'
+              helperText={validateEmail(inputs.email)?.message}
+            />
+          </div>
+          <div>
+            <TextField
+              onChange={(e) => handleChange(e)}
+              id='password'
+              name='password'
+              label='Password'
+              value={inputs.password}
+              variant='outlined'
+              type='password'
+            />
+          </div>
+          <div>
+            <Button
+              variant='contained'
+              color='primary'
+              disabled={!error.emailError && !error.passError ? false : true}
+            >
+              Login
+            </Button>
+          </div>
+        </form>
 
-        <h1>
-          LOGIN
-        </h1>
-        <div className="LoginDiv">
+        <div className='LoginDiv'>
           <h3>Login with google or MetaMask acount</h3>
-          <button id="connect" onClick={connect}>
+          <button id='connect' onClick={connect}>
             MetaMask
           </button>
-          <button onClick={handleClick}>
+          <button
+            onClick={() => {
+              dispatch(IsAutorize())
+            }}
+          >
             Ingresar con Google
           </button>
         </div>
-
-
-        <div id="content">
-          <span id="account">
-          </span>
-          <form id="send" onSubmit={send}>
-            <label>Address</label>
-            <input id="recipient" type="text" placeholder="Recipient" />
-
-            <label>Cantidad</label>
-            <input id="amount" type="number" placeholder="Amount" />
-            <button id="send">
-              Enviar
-            </button>
-          </form>
-        </div>
-
       </header>
     </div>
-  );
+  )
 }
-
