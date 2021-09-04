@@ -129,7 +129,18 @@ async function searchProduct(req, res, next) {
   }
 }
 
-async function updateProductById(req, res) {}
+async function updateProductById(req, res, next) {
+  const id = req.params.id;
+  const body = req.body;
+  try {
+    await Product.findByIdAndUpdate(id, body);
+
+    res.send("edit nft");
+  } catch (error) {
+    next("error");
+    res.send("fail edit");
+  }
+}
 
 async function deleteProductById(req, res) {
   console.log("acaaaaa");

@@ -29,7 +29,7 @@ router.get("/nfts", getNFTs);
 router.get("/nft/:id", getProductById);
 router.post("/nft", createProduct);
 
-// router.put('/nft', updateProductById)
+router.put("/edit/:id", updateProductById);
 router.delete("/delete/:id", deleteProductById);
 // router.use('/auth/google',isAuthenticated)
 // router.use('/google/callback',googleCallback)
