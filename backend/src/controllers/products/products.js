@@ -143,7 +143,7 @@ async function updateProductById(req, res, next) {
 }
 
 async function deleteProductById(req, res) {
-  console.log("acaaaaa");
+  console.log("acaaaaaaa");
   const id = req.params.id;
   console.log("id desde backend", id);
   try {
