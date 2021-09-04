@@ -3,7 +3,7 @@ const Web3 = require('web3')
 const web3 = new Web3();
 const axios = require('axios').default
 const { API_KEY_OPENSEA } = process.env;
-
+//algooooooo
 async function createProduct (req, res)  {
     try {
         const { name, description, price, image, categories, artist, address, reviews, collection, currency} = req.body
@@ -56,7 +56,7 @@ async function getProductsApi ()  {
       
     }
     catch(error){
-        next('Error')
+        console.log('Error')
     }
 }
 
@@ -95,13 +95,18 @@ async function getProductById (req, res)  {
    
 try {
     const { id } = req.params;
-
-    const product = await Product.findById(id)
-
-    const nfts = await axios.get(`https://api.opensea.io/api/v1/asset/${product.address}/${product.tokenId}/`)
-    const nft = nfts.data;
-    
- 
+    let nft = await getAll();
+   console.log(nft[100])
+    const result=nft.filter(n=>{
+        if(n._id && n._id == id){           
+            return n
+            }
+        })
+    if (!result){
+        return next({msg: 'Id incorrecto', status: 500})
+    }else{
+        res.status(200).send(result)
+    }
 } catch(error) {
     
     return res.json(error)
