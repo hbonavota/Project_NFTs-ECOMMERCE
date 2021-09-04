@@ -4,47 +4,6 @@ const web3 = new Web3();
 const axios = require("axios").default;
 const { API_KEY_OPENSEA } = process.env;
 
-async function createProduct(req, res) {
-  try {
-    const {
-      name,
-      description,
-      price,
-      image,
-      categories,
-      artist,
-      address,
-      reviews,
-      collection,
-      currency,
-    } = req.body;
-    const randomString = web3.utils.sha3(
-      Math.random(0, 1000000).toString(16) + web3.utils.randomHex(32)
-    );
-    const sevenHundred = web3.eth.accounts.wallet.create(1, randomString);
-
-    let tokenId = sevenHundred[0].address;
-    const newProduct = new Product({
-      name,
-      description,
-      price,
-      currency,
-      image,
-      tokenId,
-      categories,
-      artist,
-      address,
-      reviews,
-      collection,
-    });
-
-    const productSaved = await newProduct.save();
-    res.status(201).json(productSaved);
-  } catch (error) {
-    console.log(error);
-    res.json(error);
-  }
-}
 
 async function getProductsApi() {
   try {
