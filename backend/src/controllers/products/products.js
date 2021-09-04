@@ -3,7 +3,7 @@ const Web3 = require('web3')
 const web3 = new Web3();
 const axios = require('axios').default
 const { API_KEY_OPENSEA } = process.env;
-
+//algooooooo
 async function createProduct (req, res)  {
     try {
         const { name, description, price, image, categories, artist, address, reviews, collection, currency} = req.body
