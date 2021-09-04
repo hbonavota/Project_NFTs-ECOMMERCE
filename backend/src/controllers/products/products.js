@@ -6,7 +6,7 @@ const { API_KEY_OPENSEA } = process.env;
 
 async function createProduct (req, res)  {
     try {
-        const { name, description, price, image, categories, artist, address, reviews, collection } = req.body
+        const { name, description, price, image, categories, artist, address, reviews, collection, currency} = req.body
         const randomString = web3.utils.sha3(Math.random(0, 1000000).toString(16) + web3.utils.randomHex(32))
         const sevenHundred = web3.eth.accounts.wallet.create(1, randomString)
 
@@ -16,6 +16,7 @@ async function createProduct (req, res)  {
             name, 
             description,
             price,
+            currency,
             image, 
             tokenId,
             categories,
@@ -35,12 +36,9 @@ async function createProduct (req, res)  {
 }
 }
 
-async function getProductsApi (req, res,next)  {
-    
-   
+async function getProductsApi ()  {
     try{
-
-            const nfts = await axios.get('https://api.coinranking.com/v2/nfts?&limit=100')
+            const nfts = await axios.get('https://api.coinranking.com/v2/nfts?&limit=100');
             const nft = nfts.data.data.nfts;
             let dataAssets = [];    
             for (let n of nft) {
@@ -54,10 +52,7 @@ async function getProductsApi (req, res,next)  {
               };
             dataAssets.push(assets);
             }
-           //VER COMO TRAER LOS PRODUCTOS CREADOS DE LA BASE DE DATOS !!!!!
-           //     var dbNFTs=db.henry.findAll({
-              
-            res.json(dataAssets);
+            return dataAssets;
       
     }
     catch(error){
@@ -67,14 +62,33 @@ async function getProductsApi (req, res,next)  {
 
   
 
-async function getProductsDb (req, res)  {
+async function getProductsDb ()  {
     try {
            const products = await Product.find()
-           return res.json(products)
+           return products;
      }
      catch(err){
          console.log(err)
      }
+}
+let getAll = async() => {
+    try {
+        const nftApi = await getProductsApi();
+        const nftDB = await getProductsDb();
+        const nftTotal = nftApi.concat(nftDB);
+        return nftTotal;
+    } catch (error) {
+        console.log(error)
+    }
+}
+//FUNCION QUE HACE EL GET
+let getNFTs = async(_req, res) => {
+    try {
+        let nft = await getAll();
+        return res.json(nft);
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 async function getProductById (req, res)  {
@@ -131,5 +145,6 @@ module.exports = {
     getProductById,
     updateProductById,
     deleteProductById,
-    searchProduct
+    searchProduct,
+    getNFTs
 }
