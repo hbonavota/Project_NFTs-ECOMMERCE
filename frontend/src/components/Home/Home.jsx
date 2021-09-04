@@ -5,6 +5,8 @@ import NavBar from "../NavBar/NavBar";
 import { loading } from "../../actions/loading.js";
 import style from "../Home/Home.module.css";
 import Paginated from "../Paginado/Paginated";
+import Search from "../Search/Search";
+
 export default function Home() {
   const StateFilteredNFTs = useSelector((state) => state.filtered);
   const stateAllNFTs = useSelector((state) => state.allNFTs);
@@ -37,11 +39,12 @@ export default function Home() {
       >
         <div className={style.container}>
           <h1> Welcome to NFTs-ECOMMERCE</h1>
+          <Search/>
           {currentNft ? (
             currentNft.map((n) => (
               <div key={n.id}>
                 <h2>{n.name}</h2>
-                <img src={n.image} />
+                <img src={n.image || n.iconUrl} />
                 <p>{n.description}</p>
                 {/* <div>
                         <p>{n.owner}</p>
