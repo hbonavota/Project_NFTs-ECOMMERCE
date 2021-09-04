@@ -5,7 +5,6 @@ const morgan = require('morgan');
 const routes = require('./src/routes/index');
 const setHeaders = require("./src/utils/middlewares/setHeaders");
 const errorHandler = require("./src/utils//middlewares/errorHandler");
-const cors=require('cors');
 // require('./db.js');
 
 const server = express();
@@ -18,15 +17,6 @@ server.use(cookieParser());
 server.use(morgan('dev'));
 server.use(setHeaders);
 server.use('/', routes);
-
-//SI NO AGREGO ESTAS COSAS DEPENDE EL BROWSER VA A TIRAR ERRO
-server.use(cors(
-  {
-    origin:'*',
-    methods:['GET','POST','DELETE','PUT'],
-    allowedHeaders:['Content-Type','Authorization']
-  }
-))
 
 server.get('/', (req, res) => {
   res.send("Página de inicio");
