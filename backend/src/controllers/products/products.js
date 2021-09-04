@@ -35,7 +35,7 @@ async function createProduct (req, res)  {
     res.json(error)
 }
 }
-
+//COMENTARIO RANDOM
 async function getProductsApi ()  {
     try{
             const nfts = await axios.get('https://api.coinranking.com/v2/nfts?&limit=100');
