@@ -3,7 +3,7 @@ const Web3 = require('web3')
 const web3 = new Web3();
 const axios = require('axios').default
 const { API_KEY_OPENSEA } = process.env;
-//algooooooo
+
 async function createProduct (req, res)  {
     try {
         const { name, description, price, image, categories, artist, address, reviews, collection, currency} = req.body
@@ -45,8 +45,9 @@ async function getProductsApi ()  {
                     const assets = { 
                         name: n.name,
                         image: n.image,
-                        id: n.id,
+                        _id: n.id,
                         price:n.price,
+                        description:n.description,
                         price_dolar:n.priceInDollar,     
                         tokenId:n.tokenId
               };
@@ -92,12 +93,12 @@ let getNFTs = async(_req, res) => {
 }
 
 async function getProductById (req, res)  {
+    console.log("entree")
    
 try {
     const { id } = req.params;
-    let nft = await getAll();
-   console.log(nft[100])
-    const result=nft.filter(n=>{
+    let nft = await getAll();   
+    const result=nft.find(n=>{
         if(n._id && n._id == id){           
             return n
             }
@@ -105,6 +106,10 @@ try {
     if (!result){
         return next({msg: 'Id incorrecto', status: 500})
     }else{
+        if(!result.createdInDB){
+            let nftApi = await axios.get('https://api.coinranking.com/v2/nft/'+id)
+            return res.send(nftApi.data.data.nft)
+        }
         res.status(200).send(result)
     }
 } catch(error) {

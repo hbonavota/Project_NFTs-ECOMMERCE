@@ -6,22 +6,34 @@ import { loading } from "../../actions/loading.js";
 import style from "../Home/Home.module.css";
 import Paginated from "../Paginado/Paginated";
 import Search from "../Search/Search";
+import { Link } from 'react-router-dom';
+
+
 
 export default function Home() {
   const StateFilteredNFTs = useSelector((state) => state.filtered);
   const stateAllNFTs = useSelector((state) => state.allNFTs);
   const stateLoading = useSelector((state) => state.loading);
-  const pages = useSelector((state) => state.page);
-  const [PerPage, setGamePerPage] = useState(9);
-  const lastNft = pages * PerPage;
-  const firstNft = lastNft - PerPage;
-  const currentNft = stateAllNFTs.slice(firstNft, lastNft);
+  // const pages = useSelector((state) => state.page);
+  // const [PerPage, setNftPerPage] = useState(9);
+  // const lastNft = pages * PerPage;
+  // const firstNft = lastNft - PerPage;
+  // const currentNft = stateAllNFTs.slice(firstNft, lastNft);
 
-  const paged = (pageNumber) => {
-    dispatch(pageUno(pageNumber));
-  };
+const [currentPage,setCurrentPage]=useState(1);//empieza por pagina 1
+const [PerPage, setNftPerPage]=useState([9]);// cuantos perros por pagina
+const lastNft=currentPage*PerPage;//ultimo perro primer caso 1*9
+const firstNft=lastNft-PerPage;//primer perro 9-9=0
+const currentNft=stateAllNFTs.slice(firstNft,lastNft);//aca hago el corte de mi arreglo de dogs
+const paginate=(pageNumber)=> setCurrentPage(pageNumber)
 
-  console.log(stateAllNFTs, "nftssssss");
+
+// const paginate=(pageNumber)=> setCurrentPage(pageNumber)
+//   const paged = (pageNumber) => {
+//     dispatch(pageUno(pageNumber));
+//   };
+
+//   console.log(stateAllNFTs, "nftssssss");
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -40,32 +52,37 @@ export default function Home() {
         <div className={style.container}>
           <h1> Welcome to NFTs-ECOMMERCE</h1>
           <Search/>
-          {currentNft ? (
+          {currentNft && currentNft.length >0 ? (
             currentNft.map((n) => (
-              <div key={n.id}>
-                <h2>{n.name}</h2>
+              <div key={n._id}>
+                <Link  to={`nft/${n._id}`}> <h4 ><h2>{n.name}</h2></h4></Link>                
                 <img src={n.image || n.iconUrl} />
                 <p>{n.description}</p>
-                {/* <div>
-                        <p>{n.owner}</p>
-                        </div> */}
+                
               </div>
             ))
           ) : (
             <p>loading...</p>
           )}
+
+</div>
+      {/* <div class="divPagination">
+      <Pagination dogsPerPage={dogsPerPage} totalDogs={dogs.length} paginate={paginate}/>
+      </div> */}
+    </div>
           <div>
             <Paginated
+            
               PerPage={PerPage}
               stateAllNFTs={stateAllNFTs.length}
-              paged={paged}
+              paged={paginate}
             />
-            {currentNft?.map((e, index) => {
+            {/* {currentNft.length?.map((e, index) => {
               // le pregunto si hay AllGames, (tiene el estado global con todos los juegos) y desp por cada juego le paso un card con cada prop que quiero renderizar
               return <p key={index} nft={e} />;
-            })}
-          </div>
-        </div>
+            })} */}
+          {/* </div> */}
+        {/* </div> */}
       </div>
     </div>
   );
