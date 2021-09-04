@@ -11,6 +11,7 @@ import Create from './components/create/create.jsx'
 import Profile from './components/profile/profile.jsx'
 import Contact from './components/contact/contact.jsx'
 import About from './components/about/about.jsx'
+import NftDetail from './components/NftDetail/NftDetail'
 import './App.css';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
       <NavBar/>
       <Switch>
         <Route exact path='/' component={Home}></Route>
+        <Route path="/nft/:id" component={NftDetail}/>
         <Route exact path='/categories' component={Categories}></Route>
         <Route exact path='/create' component={Create}></Route>
         <Route exact path='/profile' component={Profile}></Route>
