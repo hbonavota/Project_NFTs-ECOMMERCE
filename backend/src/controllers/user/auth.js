@@ -14,8 +14,17 @@ passport.use(new GoogleStrategy({
     callbackURL: "http://localhost:8001/google/callback"
   },
   function(token, tokenSecret, profile, done) {
-      User.findOrCreate({ googleId: profile.id }, function (err, user) {
-        return done(err, user);
-      });
+/*       User.findOrCreate({ googleId: profile.id }, function (err, user) {
+        return done(err, profile);
+      }); */
+      return done(err,profile);
   }
 ));
+
+passport.serializeUser(function (user,done){
+  done(null,user)
+});
+
+passport.deserializeUser(function(user,done){
+  done(null, user);
+})
