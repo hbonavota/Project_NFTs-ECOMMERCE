@@ -27,7 +27,7 @@ async function createProduct(req, res) {
 
     let tokenId = sevenHundred[0].address;
     const newProduct = new Product({
-      name,
+ name,
       description,
       price,
       currency,
@@ -39,6 +39,14 @@ async function createProduct(req, res) {
       reviews,
       collection,
     });
+
+    const productSaved = await newProduct.save();
+    res.status(201).json(productSaved);
+  } catch (error) {
+    console.log(error);
+    res.json(error);
+  }
+}
 
 
 async function getProductsApi ()  {
@@ -123,6 +131,7 @@ try {
     
     return res.json(error)
 
+}
 }
 
 async function searchProduct(req, res, next) {
