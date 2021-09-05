@@ -110,7 +110,7 @@ export default function Categories() {
           </div>
           <Grid container spacing={6}  className={classes.gridContainer}>
               {
-                  stateAllNFTs.map(ele => {
+                  stateAllNFTs && stateAllNFTs.map(ele => {
                       return (
                           <div>
                               <Cards ele={ele} />

@@ -44,7 +44,7 @@ export default function Cards({ele}) {
             />
                 <CardMedia
           className={classes.media}
-          image={ele.image}
+          image={ele.image || ele.iconUrl}
           title={ele.name}
         />
         <CardContent className={classes.cardContent}>
