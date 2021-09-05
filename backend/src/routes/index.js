@@ -6,7 +6,7 @@ const passport = require('passport');
 const {isLoggedIn} = require('../controllers/user/isLoggedIn')
 const {protected} = require('../controllers/apiGoogle/protected')
 
-
+const login = require('../controllers/auth/login');
 const { transactionMetaMask } = require('../controllers/payments/crypto/transactionMetaMask') 
 const { searchProduct,createProduct, getProductsApi, getProductsDb, getProductById, updateProductById, deleteProductById, getNFTs } = require('../controllers/products/products');
 
@@ -16,6 +16,7 @@ router.get('/nfts', getNFTs);
 router.get('/nft/:id', getProductById);
 router.post('/nft', createProduct);
 router.post('/transaction', transactionMetaMask)
+router.post('/auth/login', login)
 
 // router.put('/nft', updateProductById)
 // router.delete('/nft', deleteProductById)

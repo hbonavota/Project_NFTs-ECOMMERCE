@@ -6,6 +6,7 @@ const routes = require('./src/routes/index');
 const setHeaders = require("./src/utils/middlewares/setHeaders");
 const errorHandler = require("./src/utils//middlewares/errorHandler");
 const cors=require('cors');
+const sessionMiddleware = require('./src/utils/middlewares/sessionMiddleware');
 // require('./db.js');
 
 const server = express();
@@ -17,6 +18,8 @@ server.use(express.json({ limit: '50mb' }));
 server.use(cookieParser());
 server.use(morgan('dev'));
 server.use(setHeaders);
+// server.use(sessionMiddleware);
+console.log(sessionMiddleware)
 server.use('/', routes);
 
 //SI NO AGREGO ESTAS COSAS DEPENDE EL BROWSER VA A TIRAR ERRO
