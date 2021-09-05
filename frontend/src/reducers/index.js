@@ -45,6 +45,33 @@ function rootReducer(state = initialState, action) {
         ...state,
         nftDetail:action.payload
       }
+      case  'FILTER_BY_DES_ASC':{
+        const ascDescFilter = action.payload==="za"? state.allNFTs.sort((a, b) => {
+          // cat.name.charAt(0).toUpperCase()
+          if (a.name !==null && b.name !==null){
+            if(a.name?.charAt(0).toLowerCase() < b.name?.charAt(0).toLowerCase()) {
+                return 1
+            } else {
+                return - 1
+            }
+          }}):
+        state.allNFTs.sort((a, b) => {
+          if (a.name !==null && b.name !==null){
+            if(a.name?.charAt(0).toLowerCase() > b.name?.charAt(0).toLowerCase()) {
+                    return 1
+                } else {
+                    return - 1
+                }
+            }}) 
+
+            console.log(ascDescFilter,"asi queda")
+            return{
+                ...state,
+                allNFTs: [...ascDescFilter]
+            }
+          
+    }
+    
     
     default:
       return state;
