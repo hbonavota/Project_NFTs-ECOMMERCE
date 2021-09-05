@@ -11,7 +11,7 @@ const sessionConfig = {
   proxy: true,
   resave: false,
   rolling: true,
-  //secret,
+  secret : 'hola mundo',
   store: new RedisStore({
     client: getClient(),
     prefix: '-session:',
@@ -31,7 +31,9 @@ const sessionConfig = {
      * This means that the user session will expire on 90 minutes of inactivity.
      */
     maxAge: 60000 * 90,
-    httpOnly: false
+    httpOnly: false,
+    sameSite: 'lax', 
+    secure: false
   },
 };
 

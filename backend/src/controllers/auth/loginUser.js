@@ -7,8 +7,10 @@ function loginUser(req, user) {
         reject(loginError);
         return;
       }
-      console.log(`[USER_LOGIN] ${user.id} ${user.email}`);
+      //console.log('session ',req.session)
+      // console.log(`[USER_LOGIN] ${user.id} ${user.email}`);
       resolve(req.user);
+      console.log('req.user => ',req.user)
     });
   });
 }

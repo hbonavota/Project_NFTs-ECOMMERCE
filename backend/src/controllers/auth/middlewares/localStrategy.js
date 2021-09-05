@@ -1,4 +1,5 @@
 const LocalStrategy = require('passport-local').Strategy;
+const User = require('../../../models/User')
 
 
 const localStrategy = new LocalStrategy(
@@ -8,11 +9,16 @@ const localStrategy = new LocalStrategy(
    * The responsibility of this function is only to authenticate the user
    * against Mobile Service.
    */
-  (req, username, password, done) => {
-      console.log('username =>',username);
-      if(username=='dani') {
-        console.log('done =>',done);
-        return done(null, {text : 'username dani'})
+  async(_req, username, password, done) => {
+      // console.log('username =>',username);
+      const found = await User.findOne({username, password});
+      console.log(found);
+      //if(found) return done(null, found)
+      //return done('no autorizado gil')
+
+      if(found) {
+        // console.log('done =>',done);
+        return done(null, {text : "HOLA USUARIO", username})
         }; 
       return done('errorrrrrrrrrrr'); 
     // // login({ userName: username, password, countryId, axios, loginFrom }).then(

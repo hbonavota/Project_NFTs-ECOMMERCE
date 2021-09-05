@@ -13,7 +13,6 @@ function getClient() {
 
 function initialize() {
   if (!clientInstance) {
-      console.log('hola')
     clientInstance = promisifyAll(redis.createClient({ port : 6379, host : 'localhost' }));
     clientInstance.on('connect', () => {
       console.log('Redis client connected');
