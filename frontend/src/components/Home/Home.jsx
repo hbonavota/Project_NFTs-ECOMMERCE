@@ -7,6 +7,9 @@ import style from "../Home/Home.module.css";
 import Paginated from "../Paginado/Paginated";
 import Search from "../Search/Search";
 import { Link } from 'react-router-dom';
+import Cards from "../card/card.jsx"
+import Grid from '@material-ui/core/Grid';
+// import sortByAbc from '../../actions/sortByAbc'
 
 
 
@@ -44,6 +47,11 @@ const paginate=(pageNumber)=> setCurrentPage(pageNumber)
     };
   }, [dispatch]);
 
+  const filterAscDesc=(e)=>{
+    e.preventDefault()
+  //  dispatch(sortByAbc(e.target.value))
+  }
+
   return (
     <div>
       <div
@@ -52,23 +60,70 @@ const paginate=(pageNumber)=> setCurrentPage(pageNumber)
         <div className={style.container}>
           <h1> Welcome to NFTs-ECOMMERCE</h1>
           <Search/>
+          <label htmlFor="">Filters/ Orders</label>
+
+          //FILTRAR POR CATEGORIAS 
+    
+                  
+          {/* <select  name="categories" onChange={e=>filterByCategories(e)}>
+           <option value="">Temperaments</option>
+           <option value="all">All</option>      
+           {categories.map((cat)=>{
+          return <option key={cat.id} value={cat.name && cat.name.charAt(0).toUpperCase()+
+            cat.name.slice(1)}>{cat.name && cat.name.charAt(0).toUpperCase()+cat.name.slice(1)}</option>
+          })}      
+           </select> */}
+
+           //ORDENAR POR ABC
+        <select onChange={e=> filterAscDesc(e)}>
+          <option value="">Asc-Desc</option>
+          <option value="az">A-Z</option>
+          <option value="za">Z-A</option>
+        </select>
+
+        {/* <select className="selects" onChange={e=>filterByCreated(e)}>
+        <option value="">By created</option>
+         <option value="all">All</option>
+          <option value="created">Created Dogs</option>
+          <option value="apiDogs">Api Dogs</option>
+        </select> */}
+
+        {/* <select className="selects" onChange={e=>filterByWeight(e)}>
+        <option value="">By weight</option>
+         <option value="all">All</option>
+          <option value="max">Max</option>
+          <option value="min">Min</option>
+        </select>
+     */}
+       {/* <Link to="/dogs/add"><button class="buttonDog">Create Dog</button></Link>
+       <button class="buttonDog" onClick={(e)=>allDogs(e)}>All Dogs</button>
+       </div> */} 
+
+
+
+
+      <Grid container spacing={6}>
           {currentNft && currentNft.length >0 ? (
-            currentNft.map((n) => (
-              <div key={n._id}>
-                <Link  to={`nft/${n._id}`}> <h4 ><h2>{n.name}</h2></h4></Link>                
-                <img src={n.image || n.iconUrl} />
-                <p>{n.description}</p>
+            currentNft.map((ele) => (
+                <div>
+                  <Link  to={`nft/${ele._id}`}>
+                    <Cards ele={ele} />
+                    </Link> 
+                </div>
+        
+              // <div key={n._id}>
+              //   <Link  to={`nft/${n._id}`}> <h4 ><h2>{n.name}</h2></h4></Link>                
+              //   <img src={n.image || n.iconUrl} />
+              //   <p>{n.description}</p>
                 
-              </div>
+              // </div>
             ))
           ) : (
             <p>loading...</p>
           )}
-
+        </Grid>
 </div>
-      {/* <div class="divPagination">
-      <Pagination dogsPerPage={dogsPerPage} totalDogs={dogs.length} paginate={paginate}/>
-      </div> */}
+     
     </div>
           <div>
             <Paginated

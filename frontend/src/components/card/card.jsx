@@ -14,7 +14,8 @@ import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
     card: {
-        margin: "10px"
+        margin: "10px",
+        minHeight: "30rem"
     },
     cardContent: {
         direction: "row"
@@ -43,7 +44,7 @@ export default function Cards({ele}) {
             />
                 <CardMedia
           className={classes.media}
-          image={ele.image}
+          image={ele.image || ele.iconUrl}
           title={ele.name}
         />
         <CardContent className={classes.cardContent}>

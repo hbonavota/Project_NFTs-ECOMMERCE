@@ -53,8 +53,9 @@ async function getProductsApi ()  {
     try{
             const nfts = await axios.get('https://api.coinranking.com/v2/nfts?&limit=100');
             const nft = nfts.data.data.nfts;
-            let dataAssets = [];    
-            for (let n of nft) {
+            const filtrado=nft.filter(n=>n.name && n.image)
+            let dataAssets = [];
+            for (let n of filtrado) {
                     const assets = { 
                         name: n.name,
                         image: n.image,
@@ -62,10 +63,11 @@ async function getProductsApi ()  {
                         price:n.price,
                         description:n.description,
                         price_dolar:n.priceInDollar,     
-                        tokenId:n.tokenId
-              };
+                        tokenId:n.tokenId              
+            };
             dataAssets.push(assets);
             }
+            
             return dataAssets;
       
     }
@@ -85,7 +87,8 @@ async function getProductsDb() {
     console.log(err);
   }
 }
-let getAll = async () => {
+
+const getAll = async () => {
   try {
     const nftApi = await getProductsApi();
     const nftDB = await getProductsDb();
@@ -107,12 +110,10 @@ let getNFTs = async (_req, res) => {
 
 
 async function getProductById (req, res)  {
-    console.log("entree")
-   
-try {
+  try {
     const { id } = req.params;
     let nft = await getAll();   
-    const result=nft.find(n=>{
+    const result=nft.filter(n=>{
 
         if(n._id && n._id == id){           
             return n
@@ -121,7 +122,7 @@ try {
     if (!result){
         return next({msg: 'Id incorrecto', status: 500})
     }else{
-        if(!result.createdInDB){
+        if(!result[0].createdInDB){
             let nftApi = await axios.get('https://api.coinranking.com/v2/nft/'+id)
             return res.send(nftApi.data.data.nft)
         }
