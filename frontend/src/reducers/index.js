@@ -7,6 +7,7 @@ const initialState = {
   loading: true, //  boolean for show a image when is loading. Set first : true
   userIsAuthenticated:[],
   page: 1,
+  nftDetail:[],
 };
 
 function rootReducer(state = initialState, action) {
@@ -39,6 +40,12 @@ function rootReducer(state = initialState, action) {
         ...state,
         allNFTs:action.payload
       }
+    case "GET_NFT_BY_ID":
+      return{
+        ...state,
+        nftDetail:action.payload
+      }
+    
     default:
       return state;
   }
