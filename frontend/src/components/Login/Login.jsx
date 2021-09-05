@@ -4,7 +4,8 @@ import { useDispatch } from 'react-redux'
 import React, { useState } from 'react'
 import IsAutorize from '../../actions/IsAutorize'
 import { TextField, Button } from '@material-ui/core'
-const Web3 = require('web3')
+import localLogin from "../../actions/login";
+const Web3 = require('web3');
 
 export default function Login() {
   const dispatch = useDispatch()
@@ -28,9 +29,11 @@ export default function Login() {
   function handleSubmit(e) {
     e.preventDefault()
     // despachar una accion que envie el objeto inputs al back
-    setInputs({ email: '', password: '' })
+    dispatch(localLogin(inputs))
+    // setInputs({ email: '', password: '' })
     // redirigir a donde el usuario estaba antes
   }
+
 
   //para login con google
   const connect = async function () {
@@ -81,10 +84,12 @@ export default function Login() {
               variant='contained'
               color='primary'
               disabled={!error.emailError && !error.passError ? false : true}
+              type='submit'
             >
               Login
             </Button>
           </div>
+          
         </form>
 
         <div className='LoginDiv'>

@@ -8,6 +8,7 @@ const initialState = {
   userIsAuthenticated:[],
   page: 1,
   nftDetail:[],
+  userLogged: null
 };
 
 function rootReducer(state = initialState, action) {
@@ -45,6 +46,14 @@ function rootReducer(state = initialState, action) {
         ...state,
         nftDetail:action.payload
       }
+
+      case 'LOGIN_SUCCESS':
+        return {
+          ...state,
+          userLogged: action.payload
+
+        } 
+
     
     default:
       return state;
