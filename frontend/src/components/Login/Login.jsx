@@ -1,5 +1,6 @@
 import NavBar from '../NavBar/NavBar'
 import './Login.module.css'
+import { useHistory } from 'react-router'
 import { useDispatch } from 'react-redux'
 import React, { useState } from 'react'
 import IsAutorize from '../../actions/IsAutorize'
@@ -8,6 +9,7 @@ const Web3 = require('web3')
 
 export default function Login() {
   const dispatch = useDispatch()
+  const history = useHistory()
   const [inputs, setInputs] = useState({ email: '', password: '' })
   const [error, setError] = useState({ emailError: false, passError: false })
 
@@ -30,6 +32,7 @@ export default function Login() {
     // despachar una accion que envie el objeto inputs al back
     setInputs({ email: '', password: '' })
     // redirigir a donde el usuario estaba antes
+    history.push('/')
   }
 
   //para login con google
@@ -79,6 +82,7 @@ export default function Login() {
           <div>
             <Button
               variant='contained'
+              type='submit'
               color='primary'
               disabled={!error.emailError && !error.passError ? false : true}
             >
@@ -92,12 +96,8 @@ export default function Login() {
           <button id='connect' onClick={connect}>
             MetaMask
           </button>
-          <button
-            onClick={() => {
-              dispatch(IsAutorize())
-            }}
-          >
-            Ingresar con Google
+          <button>
+            <a href='http://localhost:8080/auth/google'>Ingresar con Google</a>
           </button>
         </div>
       </header>
