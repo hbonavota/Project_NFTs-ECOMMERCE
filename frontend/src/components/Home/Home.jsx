@@ -9,7 +9,7 @@ import Search from "../Search/Search";
 import { Link } from 'react-router-dom';
 import Cards from "../card/card.jsx"
 import Grid from '@material-ui/core/Grid';
-import sortByAbc from '../../actions/sortByAbc'
+// import sortByAbc from '../../actions/sortByAbc'
 
 
 
@@ -49,7 +49,7 @@ const paginate=(pageNumber)=> setCurrentPage(pageNumber)
 
   const filterAscDesc=(e)=>{
     e.preventDefault()
-   dispatch(sortByAbc(e.target.value))
+  //  dispatch(sortByAbc(e.target.value))
   }
 
   return (

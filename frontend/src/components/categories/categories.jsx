@@ -60,15 +60,16 @@ const useStyles = makeStyles((theme) => ({
 export default function Categories() {
 
   const stateAllNFTs = useSelector((state) => state.allNFTs);
+  console.log(stateAllNFTs)
   
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getNFTs());
     //dispatch(loading(true))
-    return () => {
-      dispatch(getNFTs());
-    };
+    // return () => {
+    //   dispatch(getNFTs());
+    // };
   }, [dispatch]);
 
   const [inputName,setInputName]=useState("")
@@ -110,13 +111,16 @@ export default function Categories() {
           </div>
           <Grid container spacing={6}  className={classes.gridContainer}>
               {
-                  stateAllNFTs && stateAllNFTs.map(ele => {
+                  stateAllNFTs  ? stateAllNFTs.map(ele => {
+                    if(ele !== null) {
                       return (
-                          <div>
-                              <Cards ele={ele} />
-                          </div>
-                      )
-                  })
+                        <div>
+                            <Cards ele={ele} />
+                        </div>
+                    )
+                    }
+                     
+                  }) : <h1>Loading</h1>
               }
           </Grid>
         </React.Fragment>
