@@ -121,7 +121,7 @@ async function getProductById(req, res) {
     return res.json(error)
 
 }
-
+}
 async function searchProduct(req, res, next) {
   var name = req.query.query;
   try {
