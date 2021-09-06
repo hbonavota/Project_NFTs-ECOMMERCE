@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {Link } from 'react-router-dom';
 import AppBar from "@material-ui/core/AppBar";
 import ToolBar from "@material-ui/core/ToolBar";
@@ -10,7 +10,6 @@ import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-
 
 function ElevationScroll(props) {
     const { children} = props;
@@ -52,6 +51,8 @@ function ElevationScroll(props) {
           textTransform: "none",
           height: "35px",
           color: "white"
+<<<<<<< HEAD
+=======
       },
       menu: {
         backgroundColor: theme.palette.common.green,
@@ -63,6 +64,7 @@ function ElevationScroll(props) {
         "&:hover": {
           opacity: 1
         }
+>>>>>>> 27654a62aa1790f4818ffa3f3c16a59f6a795f47
       }
   }))
 
@@ -77,6 +79,8 @@ export default function NavBar(props) {
     const handleChange = (e, value) => {
         setValue(value)
     }
+<<<<<<< HEAD
+=======
 
     const handleclick = (e) => {
       setanchorEl(e.currentTarget);
@@ -104,6 +108,7 @@ export default function NavBar(props) {
       }
     }, [value])
 
+>>>>>>> 27654a62aa1790f4818ffa3f3c16a59f6a795f47
     return (
         <React.Fragment>
         <ElevationScroll>
@@ -116,6 +121,13 @@ export default function NavBar(props) {
                  onChange={handleChange}
                  indicatorColor="secondary">
                  <Tab className={classes.tab} component={Link} to="/" label="Home"/>
+<<<<<<< HEAD
+                <Tab className={classes.tab} label="Categories"/>
+                <Tab className={classes.tab} label="Create"/>
+                <Tab className={classes.tab} label="My Profile"/>
+                <Tab className={classes.tab} label="Contact"/>
+                <Tab className={classes.tab} label="About Us"/>
+=======
                 <Tab 
                 aria-owns={anchorEl ? "categoriesMenu" : undefined}
                 aria-haspopup={anchorEl? true : undefined}
@@ -127,6 +139,7 @@ export default function NavBar(props) {
                 <Tab className={classes.tab} component={Link} to="/profile" label="My Profile"/>
                 <Tab className={classes.tab} component={Link} to="/contact" label="Contact"/>
                 <Tab className={classes.tab} component={Link} to="/about" label="About Us"/>
+>>>>>>> 27654a62aa1790f4818ffa3f3c16a59f6a795f47
              </Tabs>
              <Button component={Link} to="/login" variant="contained" color="secondary" className={classes.button}>Login</Button>
              <Menu

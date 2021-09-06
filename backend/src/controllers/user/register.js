@@ -1,13 +1,14 @@
 const User = require('../../models/User');
 const jwt = require('jsonwebtoken');
 async function register(req, res) {
-    const {username, password} = req.body;
+    const {username, password, firstName, lastName} = req.body;
     let alreadyExist = await User.findOne({username : username})
-    if(alreadyExist) return res.json({text : 'USER ALREADY EXISTS'})
+    if(alreadyExist) return res.json({error : 'USER ALREADY EXISTS'})
     const newUser = new User({
         username,
-        password
-
+        password,
+        firstName,
+        lastName
     })
     try {
         await newUser.save();
@@ -15,10 +16,11 @@ async function register(req, res) {
             expiresIn: 86400
         })
 
-        return res.json(newUser);
+        return res.json(`BIENVENIDO ${username}`);
         
     } catch (error) {
         console.log(error);
+        return res.send(500);
     }
     
 }
