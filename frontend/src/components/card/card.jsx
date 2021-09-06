@@ -43,6 +43,8 @@ export default function Cards({ ele }) {
         <CardMedia
           className={classes.media}
           image={ele.image ? ele.image : ele.images}
+
+       
           title={ele.name}
         />
         <CardContent className={classes.cardContent}>

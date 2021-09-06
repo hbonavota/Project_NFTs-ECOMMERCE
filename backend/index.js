@@ -1,5 +1,5 @@
 const server = require('./app.js');
-require('./database');
+require('./database2');
 
 // Syncing all the models at once.
 

@@ -3,12 +3,13 @@ import {Link } from 'react-router-dom';
 import AppBar from "@material-ui/core/AppBar";
 import ToolBar from "@material-ui/core/ToolBar";
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
-import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 
 function ElevationScroll(props) {
@@ -36,7 +37,11 @@ function ElevationScroll(props) {
       tab: {
           ...theme.typography.tab,
             minWidth: 10,
-            marginLeft: "25px"
+            marginLeft: "25px",
+            opacity: 0.7,
+            "&:hover": {
+            opacity: 1
+            }
       },
       button: {
           borderRadius: "50px",
@@ -48,6 +53,17 @@ function ElevationScroll(props) {
           height: "35px",
           color: "white"
       },
+      menu: {
+        backgroundColor: theme.palette.common.green,
+        color: "white"
+      },
+      menuItem: {
+        ...theme.typography.tab,
+        opacity: 0.7,
+        "&:hover": {
+          opacity: 1
+        }
+      }
   }))
 
   
@@ -55,9 +71,21 @@ function ElevationScroll(props) {
 export default function NavBar(props) {
     const classes = useStyles();
     const [value, setValue] = useState(0);
+    const [anchorEl, setanchorEl] = useState(null);
+    const [open, setopen] = useState(false)
 
     const handleChange = (e, value) => {
         setValue(value)
+    }
+
+    const handleclick = (e) => {
+      setanchorEl(e.currentTarget);
+      setopen(true);
+    }
+
+    const handleClose = (e) => {
+      setanchorEl(null);
+      setopen(false);
     }
 
     useEffect(() => {
@@ -88,13 +116,42 @@ export default function NavBar(props) {
                  onChange={handleChange}
                  indicatorColor="secondary">
                  <Tab className={classes.tab} component={Link} to="/" label="Home"/>
-                <Tab className={classes.tab} component={Link} to="/categories" label="Categories"/>
+                <Tab 
+                aria-owns={anchorEl ? "categoriesMenu" : undefined}
+                aria-haspopup={anchorEl? true : undefined}
+                className={classes.tab} 
+                onMouseOver={e => handleclick(e)}
+                component={Link} to="/categories/all" 
+                label="Categories"/>
                 <Tab className={classes.tab} component={Link} to="/create" label="Create"/>
                 <Tab className={classes.tab} component={Link} to="/profile" label="My Profile"/>
                 <Tab className={classes.tab} component={Link} to="/contact" label="Contact"/>
                 <Tab className={classes.tab} component={Link} to="/about" label="About Us"/>
              </Tabs>
              <Button component={Link} to="/login" variant="contained" color="secondary" className={classes.button}>Login</Button>
+             <Menu
+              id="categoriesMenu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{onMouseLeave: handleClose}}
+              classes={{paper: classes.menu}}
+              elevation={3}>
+                <MenuItem
+                onClick={()=> {handleClose(); setValue(1)}} 
+                component={Link} to="/categories/all"
+                classes={{root: classes.menuItem}}>Categories</MenuItem>
+                <MenuItem
+                onClick={()=> {handleClose(); setValue(1)}} 
+                component={Link} to="/categories/all"
+                classes={{root: classes.menuItem}}>All NFTS</MenuItem>
+                <MenuItem
+                onClick={handleClose}
+                classes={{root: classes.menuItem}}>Images</MenuItem>
+                <MenuItem
+                onClick={handleClose}
+                classes={{root: classes.menuItem}}>GIF</MenuItem>
+              </Menu>
             </ToolBar>
         </AppBar>
         </ElevationScroll>

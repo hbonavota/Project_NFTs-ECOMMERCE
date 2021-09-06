@@ -57,6 +57,7 @@ export default function Login() {
           <button onClick={handleClick}>
             Ingresar con Google
           </button>
+          <a href="http://localhost:8001/auth/google">go google</a>
         </div>
 
 
