@@ -10,7 +10,6 @@ const setHeaders = require("./src/utils/middlewares/setHeaders");
 const errorHandler = require("./src/utils//middlewares/errorHandler");
 const cors=require('cors');
 const sessionMiddleware = require('./src/utils/middlewares/sessionMiddleware');
-const passport = require('passport');
 
 // require('./db.js');
 
