@@ -9,7 +9,20 @@ const initialState = {
   nftDetail:[],
   userLogged: null,
   Nfts: [],
+  filters: [],
 };
+
+function getFilters(nfts) {
+  let f = [];
+
+  nfts.map((g) => {
+    if (!f.includes(g.dappSlug)) {
+      f.push(g.dappSlug);
+    }
+  });
+
+  return f;
+}
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
@@ -21,6 +34,7 @@ function rootReducer(state = initialState, action) {
         filtered: action.payload,
         loading: false,
         Nfts: action.payload,
+        filters: getFilters(action.payload),
       };
     case IS_AUTORIZATED:
       return {
@@ -102,6 +116,18 @@ function rootReducer(state = initialState, action) {
         ...state,
         allNFTs: priceFilter,
       };
+
+    case "FILTER_CATEGORIE":
+      const Nfts = state.Nfts;
+      const filterCat =
+        action.payload === "All"
+          ? Nfts
+          : Nfts.filter((i) => i.dappSlug === action.payload);
+      return {
+        ...state,
+        allNFTs: filterCat,
+      };
+
     default:
       return state;
   }
