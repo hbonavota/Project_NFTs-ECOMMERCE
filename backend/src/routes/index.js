@@ -19,6 +19,8 @@ const {
   deleteProductById,
   getNFTs,
 } = require("../controllers/products/products");
+const login = require('../controllers/auth/login');
+const register = require('../controllers/user/register');
 
 // Routes
 router.get("/search", searchProduct);
@@ -26,6 +28,11 @@ router.get("/nfts", getNFTs);
 router.get("/nft/:id", getProductById);
 router.post("/nft", createProduct);
 router.post("/transaction", transactionMetaMask);
+router.post('/auth/login', login);
+router.post('/register', register);
+
+router.put("/edit/:id", updateProductById);
+router.delete("/delete/:id", deleteProductById);
 
 router.put("/edit/:id", updateProductById);
 router.delete("/delete/:id", deleteProductById);
@@ -35,3 +42,4 @@ router.delete("/delete/:id", deleteProductById);
 router.use("/protected", isLoggedIn, protected);
 
 module.exports = router;
+

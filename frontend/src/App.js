@@ -6,12 +6,15 @@ import Login from './components/Login/Login.jsx'
 import Home from './components/Home/Home.jsx'
 import Error from './components/Error/Error.jsx'
 import NavBar from './components/NavBar/NavBar.js'
+<<<<<<< HEAD
 import Categories from './components/categories/categories.jsx'
 import Create from './components/create/create.jsx'
 import Profile from './components/profile/profile.jsx'
 import Contact from './components/contact/contact.jsx'
 import About from './components/about/about.jsx'
 import NftDetail from './components/NftDetail/NftDetail'
+=======
+>>>>>>> 4fb0080971bc1a1b1e3a7468f22164945bfdeb4d
 import './App.css';
 
 function App() {
@@ -20,12 +23,15 @@ function App() {
       <NavBar/>
       <Switch>
         <Route exact path='/' component={Home}></Route>
+<<<<<<< HEAD
         <Route path="/nft/:id" component={NftDetail}/>
         <Route exact path='/categories/all' component={Categories}></Route>
         <Route exact path='/create' component={Create}></Route>
         <Route exact path='/profile' component={Profile}></Route>
         <Route exact path='/contact' component={Contact}></Route>
         <Route exact path='/about' component={About}></Route>
+=======
+>>>>>>> 4fb0080971bc1a1b1e3a7468f22164945bfdeb4d
         <Route exact path='/login' component={Login}></Route>
         <Route path='/*' component={Error}></Route>
       </Switch>
