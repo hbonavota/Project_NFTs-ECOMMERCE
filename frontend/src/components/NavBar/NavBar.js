@@ -3,12 +3,13 @@ import {Link } from 'react-router-dom';
 import AppBar from "@material-ui/core/AppBar";
 import ToolBar from "@material-ui/core/ToolBar";
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
-import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 function ElevationScroll(props) {
     const { children} = props;
@@ -35,7 +36,11 @@ function ElevationScroll(props) {
       tab: {
           ...theme.typography.tab,
             minWidth: 10,
-            marginLeft: "25px"
+            marginLeft: "25px",
+            opacity: 0.7,
+            "&:hover": {
+            opacity: 1
+            }
       },
       button: {
           borderRadius: "50px",
@@ -46,6 +51,20 @@ function ElevationScroll(props) {
           textTransform: "none",
           height: "35px",
           color: "white"
+<<<<<<< HEAD
+=======
+      },
+      menu: {
+        backgroundColor: theme.palette.common.green,
+        color: "white"
+      },
+      menuItem: {
+        ...theme.typography.tab,
+        opacity: 0.7,
+        "&:hover": {
+          opacity: 1
+        }
+>>>>>>> 27654a62aa1790f4818ffa3f3c16a59f6a795f47
       }
   }))
 
@@ -54,10 +73,42 @@ function ElevationScroll(props) {
 export default function NavBar(props) {
     const classes = useStyles();
     const [value, setValue] = useState(0);
+    const [anchorEl, setanchorEl] = useState(null);
+    const [open, setopen] = useState(false)
 
     const handleChange = (e, value) => {
         setValue(value)
     }
+<<<<<<< HEAD
+=======
+
+    const handleclick = (e) => {
+      setanchorEl(e.currentTarget);
+      setopen(true);
+    }
+
+    const handleClose = (e) => {
+      setanchorEl(null);
+      setopen(false);
+    }
+
+    useEffect(() => {
+      if(window.location.pathname === "/" && value !== 0) {
+        setValue(0);
+      } else if(window.location.pathname === "/categories" && value !== 1) {
+        setValue(1);
+      } else if(window.location.pathname === "/create" && value !== 2) {
+        setValue(2);
+      } else if(window.location.pathname === "/profile" && value !== 3) {
+        setValue(3);
+      } else if(window.location.pathname === "/contact" && value !== 4) {
+        setValue(4);
+      } else if(window.location.pathname === "/about" && value !== 5) {
+        setValue(5);
+      }
+    }, [value])
+
+>>>>>>> 27654a62aa1790f4818ffa3f3c16a59f6a795f47
     return (
         <React.Fragment>
         <ElevationScroll>
@@ -70,13 +121,50 @@ export default function NavBar(props) {
                  onChange={handleChange}
                  indicatorColor="secondary">
                  <Tab className={classes.tab} component={Link} to="/" label="Home"/>
+<<<<<<< HEAD
                 <Tab className={classes.tab} label="Categories"/>
                 <Tab className={classes.tab} label="Create"/>
                 <Tab className={classes.tab} label="My Profile"/>
                 <Tab className={classes.tab} label="Contact"/>
                 <Tab className={classes.tab} label="About Us"/>
+=======
+                <Tab 
+                aria-owns={anchorEl ? "categoriesMenu" : undefined}
+                aria-haspopup={anchorEl? true : undefined}
+                className={classes.tab} 
+                onMouseOver={e => handleclick(e)}
+                component={Link} to="/categories/all" 
+                label="Categories"/>
+                <Tab className={classes.tab} component={Link} to="/create" label="Create"/>
+                <Tab className={classes.tab} component={Link} to="/profile" label="My Profile"/>
+                <Tab className={classes.tab} component={Link} to="/contact" label="Contact"/>
+                <Tab className={classes.tab} component={Link} to="/about" label="About Us"/>
+>>>>>>> 27654a62aa1790f4818ffa3f3c16a59f6a795f47
              </Tabs>
              <Button component={Link} to="/login" variant="contained" color="secondary" className={classes.button}>Login</Button>
+             <Menu
+              id="categoriesMenu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{onMouseLeave: handleClose}}
+              classes={{paper: classes.menu}}
+              elevation={3}>
+                <MenuItem
+                onClick={()=> {handleClose(); setValue(1)}} 
+                component={Link} to="/categories/all"
+                classes={{root: classes.menuItem}}>Categories</MenuItem>
+                <MenuItem
+                onClick={()=> {handleClose(); setValue(1)}} 
+                component={Link} to="/categories/all"
+                classes={{root: classes.menuItem}}>All NFTS</MenuItem>
+                <MenuItem
+                onClick={handleClose}
+                classes={{root: classes.menuItem}}>Images</MenuItem>
+                <MenuItem
+                onClick={handleClose}
+                classes={{root: classes.menuItem}}>GIF</MenuItem>
+              </Menu>
             </ToolBar>
         </AppBar>
         </ElevationScroll>

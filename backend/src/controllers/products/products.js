@@ -5,17 +5,20 @@ const axios = require("axios").default;
 const { API_KEY_OPENSEA } = process.env;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
 =======
 >>>>>>> 4fb0080971bc1a1b1e3a7468f22164945bfdeb4d
+=======
+>>>>>>> 27654a62aa1790f4818ffa3f3c16a59f6a795f47
 async function createProduct(req, res) {
   try {
     const {
       name,
       description,
       price,
-      image,
+      images,
       categories,
       artist,
       address,
@@ -31,14 +34,18 @@ async function createProduct(req, res) {
     let tokenId = sevenHundred[0].address;
     const newProduct = new Product({
 <<<<<<< HEAD
+<<<<<<< HEAD
  name,
 =======
       name,
 >>>>>>> 4fb0080971bc1a1b1e3a7468f22164945bfdeb4d
+=======
+      name,
+>>>>>>> 27654a62aa1790f4818ffa3f3c16a59f6a795f47
       description,
       price,
       currency,
-      image,
+      images,
       tokenId,
       categories,
       artist,
@@ -55,6 +62,7 @@ async function createProduct(req, res) {
   }
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 async function getProductsApi ()  {
@@ -79,10 +87,37 @@ async function getProductsApi ()  {
     }
     catch(error){
         console.log('Error')
+=======
+async function getProductsApi() {
+  try {
+    const nfts = await axios.get(
+      "https://api.coinranking.com/v2/nfts?&limit=100"
+    );
+    const nft = nfts.data.data.nfts;
+    const filtrado = nft.filter((n) => n.name && n.image);
+    let dataAssets = [];
+    for (let n of filtrado) {
+      const assets = {
+        name: n.name,
+        image: n.image || n.dappImage,
+        _id: n.id,
+        price: n.price,
+        description: n.description,
+        price_dolar: n.priceInDollar,
+        tokenId: n.tokenId,
+        dappSlug: n.dappSlug,
+      };
+      dataAssets.push(assets);
+>>>>>>> 27654a62aa1790f4818ffa3f3c16a59f6a795f47
     }
 
+    return dataAssets;
+  } catch (error) {
+    console.log("Error");
+  }
 }
 
+<<<<<<< HEAD
 
 
 =======
@@ -111,6 +146,8 @@ async function getProductsApi() {
 }
 
 >>>>>>> 4fb0080971bc1a1b1e3a7468f22164945bfdeb4d
+=======
+>>>>>>> 27654a62aa1790f4818ffa3f3c16a59f6a795f47
 async function getProductsDb() {
   try {
     const products = await Product.find();
@@ -119,7 +156,8 @@ async function getProductsDb() {
     console.log(err);
   }
 }
-let getAll = async () => {
+
+const getAll = async () => {
   try {
     const nftApi = await getProductsApi();
     const nftDB = await getProductsDb();
@@ -139,6 +177,7 @@ let getNFTs = async (_req, res) => {
   }
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 async function getProductById (req, res)  {
@@ -199,6 +238,31 @@ async function searchProduct(req, res, next) {
   }
 }
 <<<<<<< HEAD
+=======
+async function getProductById(req, res) {
+  try {
+    const { id } = req.params;
+    let nft = await getAll();
+    const result = nft.filter((n) => {
+      if (n._id && n._id == id) {
+        return n;
+      }
+    });
+    if (!result) {
+      return next({ msg: "Id incorrecto", status: 500 });
+    } else {
+      if (!result[0].createdInDB) {
+        let nftApi = await axios.get(
+          "https://api.coinranking.com/v2/nft/" + id
+        );
+        return res.send(nftApi.data.data.nft);
+      }
+      res.status(200).send(result);
+    }
+  } catch (error) {
+    return res.json(error);
+  }
+>>>>>>> 27654a62aa1790f4818ffa3f3c16a59f6a795f47
 }
 
 async function searchProduct(req, res, next) {
