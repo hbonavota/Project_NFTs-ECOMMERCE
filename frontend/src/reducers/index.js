@@ -6,7 +6,8 @@ const initialState = {
   loading: true, //  boolean for show a image when is loading. Set first : true
   userIsAuthenticated: [],
   page: 1,
-  nftDetail: [],
+  nftDetail:[],
+  userLogged: null,
   Nfts: [],
   filters: [],
 };
@@ -58,8 +59,15 @@ function rootReducer(state = initialState, action) {
     case "GET_NFT_BY_ID":
       return {
         ...state,
-        nftDetail: action.payload,
+        nftDetail:action.payload
       };
+    case 'LOGIN_SUCCESS':
+      return {
+        ...state,
+        userLogged: action.payload
+
+      } 
+    };
     case "FILTER_BY_DES_ASC":
       const ascDescFilter =
         action.payload === "za"
@@ -108,6 +116,7 @@ function rootReducer(state = initialState, action) {
         ...state,
         allNFTs: priceFilter,
       };
+
     case "FILTER_CATEGORIE":
       const Nfts = state.Nfts;
       const filterCat =

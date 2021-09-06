@@ -1,47 +1,44 @@
 
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const bcrypt = require('bcryptjs');
 
-const UsersSchema = new Schema({
-	email: {
-		type: String,
-		required: [true, 'User email required'],
-		validate: {
-			validator: function (v) {
-				return /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(v);
-			},
-			message: (props) => `${props.value} is not a valid email!`,
-		},
-		unique: true,
-	},
-	password: {
-		type: String,
-		required: true,
-	},
-	firstName: String,
-	lastName: String,
-	imageUrl: String,
-	role: {
-		type: String,
-		enum: {
-			values: ['admin', 'client'],
-			message: '{VALUE} is not supported',
-		},
-		default: 'client',
-	},
-	city: [
-		{
-			postal_code: Number,
-			location: String,
-		},
-	],
-	orders: [
-		{
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'orders',
-		},
-	]
+const userSchema = new Schema({
+    username: {
+        type: String,
+        unique: true
+    },
+
+
+    password: {
+        type: String,
+        required: true
+    },
+    roles: {
+        type: String,
+        enum: {
+            values: ['admin', 'user']
+        },
+        default: 'user'
+        //relaciona el schema de user con el de rol por medio del ID
+    }
 });
 
+// userSchema.pre('save', async function save(next) {
+//     if (!this.isModified('password')) return next();
+//     try {
+//         const salt = await bcrypt.genSalt(10);
+//         this.password = await bcrypt.hash(this.password, salt);
+//         return next();
+//     } catch (error) {
+//         return next(error)
+//     }
+// });
 
-module.exports = mongoose.model('users', UsersSchema);
+// userSchema.methods.validatePassword = async function validatePassword(data) {
+//     return bcrypt.compare(data, this.password);
+//   };
+
+
+
+module.exports = mongoose.model('users', userSchema);
