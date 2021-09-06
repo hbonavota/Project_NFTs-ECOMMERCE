@@ -6,15 +6,20 @@ import { loading } from "../../actions/loading.js";
 import style from "../Home/Home.module.css";
 import Paginated from "../Paginado/Paginated";
 import Search from "../Search/Search";
-import { Link } from 'react-router-dom';
+
+import { Link } from "react-router-dom";
+import sortByAbc from "../../actions/sortByAbc";
+import { sortByPrice } from "../../actions/sortByPrice";
+import { filterByCategories } from "../../actions/filterCategorie";
+
 import Cards from "../card/card.jsx"
 import Grid from '@material-ui/core/Grid';
-// import sortByAbc from '../../actions/sortByAbc'
+
 
 
 
 export default function Home() {
-  const StateFilteredNFTs = useSelector((state) => state.filtered);
+  const filters = useSelector((state) => state.filters);
   const stateAllNFTs = useSelector((state) => state.allNFTs);
   const stateLoading = useSelector((state) => state.loading);
   // const pages = useSelector((state) => state.page);
@@ -52,6 +57,17 @@ const paginate=(pageNumber)=> setCurrentPage(pageNumber)
   //  dispatch(sortByAbc(e.target.value))
   }
 
+
+  const filterByPrice = (e) => {
+    e.preventDefault();
+    dispatch(sortByPrice(e.target.value));
+  };
+
+  const handleCategorie = (e) => {
+    dispatch(filterByCategories(e.target.value));
+  };
+
+
   return (
     <div>
       <div
@@ -74,35 +90,44 @@ const paginate=(pageNumber)=> setCurrentPage(pageNumber)
           })}      
            </select> */}
 
-           //ORDENAR POR ABC
-        <select onChange={e=> filterAscDesc(e)}>
-          <option value="">Asc-Desc</option>
-          <option value="az">A-Z</option>
-          <option value="za">Z-A</option>
-        </select>
-
-        {/* <select className="selects" onChange={e=>filterByCreated(e)}>
-        <option value="">By created</option>
-         <option value="all">All</option>
-          <option value="created">Created Dogs</option>
-          <option value="apiDogs">Api Dogs</option>
-        </select> */}
-
-        {/* <select className="selects" onChange={e=>filterByWeight(e)}>
-        <option value="">By weight</option>
-         <option value="all">All</option>
-          <option value="max">Max</option>
-          <option value="min">Min</option>
-        </select>
-     */}
-       {/* <Link to="/dogs/add"><button class="buttonDog">Create Dog</button></Link>
+          //ORDENAR POR ABC
+          <select onChange={(e) => filterAscDesc(e)}>
+            <option value="">Asc-Desc</option>
+            <option value="az">A-Z</option>
+            <option value="za">Z-A</option>
+          </select>
+          <select onChange={(e) => handleCategorie(e)}>
+            <option value="All">All</option>
+            {filters &&
+              filters.map((g) => (
+                <option key={g} value={g}>
+                  {g}
+                </option>
+              ))}
+          </select>
+          <select onChange={(e) => filterByPrice(e)}>
+            <option value="all">Price</option>
+            <option value="max">Max</option>
+            <option value="min">Min</option>
+          </select>
+          {/* <Link to="/dogs/add"><button class="buttonDog">Create Dog</button></Link>
        <button class="buttonDog" onClick={(e)=>allDogs(e)}>All Dogs</button>
-       </div> */} 
-
-
-
-
-      <Grid container spacing={6}>
+       </div> */}
+          {currentNft && currentNft.length > 0 ? (
+            currentNft.map((n) => (
+              <div key={n._id}>
+                <Link to={`nft/${n._id}`}>
+                  {" "}
+                  <h4>
+                    <h2>{n.name}</h2>
+                  </h4>
+                </Link>
+                <img src={n.image ? n.image : n.images} alt={"🤔"} />
+                <p>{n.description}</p>
+                <p>categorie: {n.dappSlug} </p>
+                <p> price: {n.price}ETH</p>
+              </div>
+              <Grid container spacing={6}>
           {currentNft && currentNft.length >0 ? (
             currentNft.map((ele) => (
                 <div>
