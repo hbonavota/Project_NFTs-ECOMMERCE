@@ -10,9 +10,10 @@ import Search from "../Search/Search";
 import { Link } from "react-router-dom";
 import sortByAbc from "../../actions/sortByAbc";
 import { sortByPrice } from "../../actions/sortByPrice";
+import { filterByCategories } from "../../actions/filterCategorie";
 
 export default function Home() {
-  const StateFilteredNFTs = useSelector((state) => state.filtered);
+  const filters = useSelector((state) => state.filters);
   const stateAllNFTs = useSelector((state) => state.allNFTs);
   const stateLoading = useSelector((state) => state.loading);
   // const pages = useSelector((state) => state.page);
@@ -53,6 +54,10 @@ export default function Home() {
     e.preventDefault();
     dispatch(sortByPrice(e.target.value));
   };
+
+  const handleCategorie = (e) => {
+    dispatch(filterByCategories(e.target.value));
+  };
   return (
     <div>
       <div
@@ -77,12 +82,15 @@ export default function Home() {
             <option value="az">A-Z</option>
             <option value="za">Z-A</option>
           </select>
-          {/* <select className="selects" onChange={e=>filterByCreated(e)}>
-        <option value="">By created</option>
-         <option value="all">All</option>
-          <option value="created">Created Dogs</option>
-          <option value="apiDogs">Api Dogs</option>
-        </select> */}
+          <select onChange={(e) => handleCategorie(e)}>
+            <option value="All">All</option>
+            {filters &&
+              filters.map((g) => (
+                <option key={g} value={g}>
+                  {g}
+                </option>
+              ))}
+          </select>
           <select onChange={(e) => filterByPrice(e)}>
             <option value="all">Price</option>
             <option value="max">Max</option>
@@ -100,10 +108,10 @@ export default function Home() {
                     <h2>{n.name}</h2>
                   </h4>
                 </Link>
-                <img src={n.image || n.iconUrl} />
+                <img src={n.image ? n.image : n.images} alt={"🤔"} />
                 <p>{n.description}</p>
-                <p>categorie: {n.dappName} </p>
-                <p> price: {n.price}</p>
+                <p>categorie: {n.dappSlug} </p>
+                <p> price: {n.price}ETH</p>
               </div>
             ))
           ) : (
