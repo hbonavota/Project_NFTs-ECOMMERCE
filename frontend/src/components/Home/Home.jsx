@@ -110,23 +110,7 @@ const paginate=(pageNumber)=> setCurrentPage(pageNumber)
             <option value="max">Max</option>
             <option value="min">Min</option>
           </select>
-          {/* <Link to="/dogs/add"><button class="buttonDog">Create Dog</button></Link>
-       <button class="buttonDog" onClick={(e)=>allDogs(e)}>All Dogs</button>
-       </div> */}
-          {currentNft && currentNft.length > 0 ? (
-            currentNft.map((n) => (
-              <div key={n._id}>
-                <Link to={`nft/${n._id}`}>
-                  {" "}
-                  <h4>
-                    <h2>{n.name}</h2>
-                  </h4>
-                </Link>
-                <img src={n.image ? n.image : n.images} alt={"🤔"} />
-                <p>{n.description}</p>
-                <p>categorie: {n.dappSlug} </p>
-                <p> price: {n.price}ETH</p>
-              </div>
+          
               <Grid container spacing={6}>
           {currentNft && currentNft.length >0 ? (
             currentNft.map((ele) => (
