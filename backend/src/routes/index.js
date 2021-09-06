@@ -1,10 +1,10 @@
-const { Router } = require('express');
-const axios = require('axios')
+const { Router } = require("express");
+const axios = require("axios");
 const router = Router();
-const auth = require('../controllers/user/auth.js');
-const passport = require('passport');
-const {isLoggedIn} = require('../controllers/user/isLoggedIn')
-const {protected} = require('../controllers/apiGoogle/protected')
+const auth = require("../controllers/user/auth.js");
+const passport = require("passport");
+const { isLoggedIn } = require("../controllers/user/isLoggedIn");
+const { protected } = require("../controllers/apiGoogle/protected");
 
 const login = require('../controllers/auth/login');
 const register = require('../controllers/user/register');
@@ -22,11 +22,12 @@ router.post('/auth/login', login);
 router.post('/register', register);
 
 
-// router.put('/nft', updateProductById)
-// router.delete('/nft', deleteProductById)
+router.put("/edit/:id", updateProductById);
+router.delete("/delete/:id", deleteProductById);
 // router.use('/auth/google',isAuthenticated)
 // router.use('/google/callback',googleCallback)
 // router.use('/auth/failure', authFailure)
-router.use('/protected', isLoggedIn, protected);
+router.use("/protected", isLoggedIn, protected);
 
-module.exports = router 
+module.exports = router;
+

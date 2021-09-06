@@ -4,8 +4,11 @@ const web3 = new Web3();
 const axios = require("axios").default;
 const { API_KEY_OPENSEA } = process.env;
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 4fb0080971bc1a1b1e3a7468f22164945bfdeb4d
 async function createProduct(req, res) {
   try {
     const {
@@ -27,7 +30,11 @@ async function createProduct(req, res) {
 
     let tokenId = sevenHundred[0].address;
     const newProduct = new Product({
+<<<<<<< HEAD
  name,
+=======
+      name,
+>>>>>>> 4fb0080971bc1a1b1e3a7468f22164945bfdeb4d
       description,
       price,
       currency,
@@ -48,6 +55,7 @@ async function createProduct(req, res) {
   }
 }
 
+<<<<<<< HEAD
 
 async function getProductsApi ()  {
     try{
@@ -77,6 +85,32 @@ async function getProductsApi ()  {
 
 
 
+=======
+async function getProductsApi() {
+  try {
+    const nfts = await axios.get(
+      "https://api.coinranking.com/v2/nfts?&limit=100"
+    );
+    const nft = nfts.data.data.nfts;
+    let dataAssets = [];
+    for (let n of nft) {
+      const assets = {
+        name: n.name,
+        image: n.image,
+        id: n.id,
+        price: n.price,
+        price_dolar: n.priceInDollar,
+        tokenId: n.tokenId,
+      };
+      dataAssets.push(assets);
+    }
+    return dataAssets;
+  } catch (error) {
+    next("Error");
+  }
+}
+
+>>>>>>> 4fb0080971bc1a1b1e3a7468f22164945bfdeb4d
 async function getProductsDb() {
   try {
     const products = await Product.find();
@@ -105,15 +139,21 @@ let getNFTs = async (_req, res) => {
   }
 };
 
+<<<<<<< HEAD
 
 async function getProductById (req, res)  {
     console.log("entree")
    
 try {
+=======
+async function getProductById(req, res) {
+  try {
+>>>>>>> 4fb0080971bc1a1b1e3a7468f22164945bfdeb4d
     const { id } = req.params;
     let nft = await getAll();   
     const result=nft.find(n=>{
 
+<<<<<<< HEAD
         if(n._id && n._id == id){           
             return n
             }
@@ -130,8 +170,35 @@ try {
 } catch(error) {
     
     return res.json(error)
+=======
+    const product = await Product.findById(id);
 
+    const nfts = await axios.get(
+      `https://api.opensea.io/api/v1/asset/${product.address}/${product.tokenId}/`
+    );
+    const nft = nfts.data;
+  } catch (error) {
+    return res.json(error);
+  }
 }
+>>>>>>> 4fb0080971bc1a1b1e3a7468f22164945bfdeb4d
+
+async function searchProduct(req, res, next) {
+  var name = req.query.query;
+  try {
+    let nft = await getAll();
+    const result = nft.filter((n) => {
+      if (n.name && n.name.toLowerCase().includes(name.toLocaleLowerCase())) {
+        return n;
+      }
+    });
+    console.log(result);
+    return res.status(200).send(result);
+  } catch (error) {
+    next("error");
+  }
+}
+<<<<<<< HEAD
 }
 
 async function searchProduct(req, res, next) {
@@ -178,6 +245,39 @@ async function deleteProductById(req, res, next) {
   }
 }
 
+=======
+
+async function updateProductById(req, res, next) {
+  const id = req.params.id;
+  const body = req.body;
+  try {
+    await Product.findByIdAndUpdate(id, body);
+
+    res.send("edit nft");
+  } catch (error) {
+    next("error");
+    res.send("fail edit");
+  }
+}
+
+async function deleteProductById(req, res) {
+  console.log("acaaaaaaa");
+  const id = req.params.id;
+  console.log("id desde backend", id);
+  try {
+    const nftDb = await Product.findByIdAndDelete({ _id: id });
+    console.log(nftDb, "ACAAAAAAA");
+    if (!nftDb) {
+      res.send("No se puede eliminar");
+    } else {
+      res.json("Eliminado");
+    }
+  } catch (error) {
+    next("error");
+  }
+}
+
+>>>>>>> 4fb0080971bc1a1b1e3a7468f22164945bfdeb4d
 module.exports = {
   createProduct,
   getProductsApi,

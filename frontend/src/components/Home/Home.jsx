@@ -5,11 +5,14 @@ import NavBar from "../NavBar/NavBar";
 import { loading } from "../../actions/loading.js";
 import style from "../Home/Home.module.css";
 import Paginated from "../Paginado/Paginated";
+<<<<<<< HEAD
 import Search from "../Search/Search";
 import { Link } from 'react-router-dom';
 
 
 
+=======
+>>>>>>> 4fb0080971bc1a1b1e3a7468f22164945bfdeb4d
 export default function Home() {
   const StateFilteredNFTs = useSelector((state) => state.filtered);
   const stateAllNFTs = useSelector((state) => state.allNFTs);
@@ -51,12 +54,20 @@ const paginate=(pageNumber)=> setCurrentPage(pageNumber)
       >
         <div className={style.container}>
           <h1> Welcome to NFTs-ECOMMERCE</h1>
+<<<<<<< HEAD
           <Search/>
           {currentNft && currentNft.length >0 ? (
             currentNft.map((n) => (
               <div key={n._id}>
                 <Link  to={`nft/${n._id}`}> <h4 ><h2>{n.name}</h2></h4></Link>                
                 <img src={n.image || n.iconUrl} />
+=======
+          {currentNft ? (
+            currentNft.map((n) => (
+              <div key={n.id}>
+                <h2>{n.name}</h2>
+                <img src={n.image} />
+>>>>>>> 4fb0080971bc1a1b1e3a7468f22164945bfdeb4d
                 <p>{n.description}</p>
                 
               </div>
