@@ -10,7 +10,7 @@ function loginUser(req, user) {
       //console.log('session ',req.session)
       // console.log(`[USER_LOGIN] ${user.id} ${user.email}`);
       resolve(req.user);
-      console.log('req.user => ',req.user)
+      // console.log('req.user => ',req.user)
     });
   });
 }

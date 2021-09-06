@@ -20,7 +20,7 @@ const localStrategy = new LocalStrategy(
         // console.log('done =>',done);
         return done(null, {text : "HOLA USUARIO", username})
         }; 
-      return done('errorrrrrrrrrrr'); 
+      return done({error: 'VALIDATION FAILED'}); 
     // // login({ userName: username, password, countryId, axios, loginFrom }).then(
     //   response => {
     //     if (!response.success) return done(response.error);

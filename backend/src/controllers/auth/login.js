@@ -18,9 +18,9 @@ function login(req, res, next) {
         res.status(401).send(authError);
       } else {
         const loggedUser = await loginUser(req, user);
-        console.log('Logged user', loggedUser)
+        // console.log('Logged user', loggedUser)
         // console.log('user => ', user);
-        res.send({ data: user });
+        res.send(loggedUser);
       }
     } catch (e) {
       res.sendStatus(500);
