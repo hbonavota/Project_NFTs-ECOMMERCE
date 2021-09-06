@@ -21,24 +21,6 @@ const ProductsSchema = new Schema({
   reviews: [],
 });
 
-// categories: [
-// 	{
-// 		type: mongoose.Schema.Types.ObjectId,
-// 		ref: 'categories',
-// 	},
-// ],
-// artist: [
-// 	{
-// 		type: mongoose.Schema.Types.ObjectId,
-// 		ref: 'artistNFTs',
-// 	},
-// ],
-// collection: [
-// 	{
-// 		type: mongoose.Schema.Types.ObjectId,
-// 		ref: 'products',
-// 	},
-// ],
 // ProductsSchema.plugin(findOrCreate);
 
 module.exports = mongoose.model("products", ProductsSchema);

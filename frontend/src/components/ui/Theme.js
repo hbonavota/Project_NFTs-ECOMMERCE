@@ -1,19 +1,19 @@
 import { createTheme } from '@material-ui/core/styles';
 
 const emeraldgreen = "#368B85";
-const lightgray = "#93B5C6";
+const lightgrey = "#93B5C6";
 
 export default createTheme({
     palette: {
         common: {
             green: `${emeraldgreen}`,
-            gray: `${lightgray}`,
+            grey: `${lightgrey}`,
         },
         primary: {
             main: `${emeraldgreen}`
         },
         secondary: {
-            main: `${lightgray}`
+            main: `${lightgrey}`
         }
     },
     typography: {

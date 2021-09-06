@@ -9,14 +9,19 @@
     "dotenv": "^10.0.0",
     "ethereumjs-util": "^7.1.0",
     "express": "^4.17.1",
-    "express-session": "^1.17.2",
+    "express-session": "^1.15.6",
+    "redis": "^2.8.0",
     "helmet": "^4.6.0",
+    "uuid": "^8.2.0",
+    "bluebird": "^3.5.3",
+
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.13.8",
     "morgan": "^1.10.0",
     "passport": "^0.4.1",
     "passport-google-oauth": "^2.0.0",
     "passport-google-oauth2": "^0.2.0",
+    "passport-local": "^1.0.0",
     "puppeteer": "^10.2.0",
     "recursive-fs": "^2.1.0",
     "web3": "^1.5.2"
@@ -31,7 +36,7 @@
     "nodemon": "^2.0.12"
   },
   "scripts": {
-    "start": "nodemon -L",
+    "start": "nodemon -w",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
